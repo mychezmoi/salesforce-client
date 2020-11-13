@@ -1,0 +1,37 @@
+{
+    "name": "mychezmoi/salesforce-client",
+    "description": "Salesforce REST client for PHP",
+    "keywords": [
+        "crm",
+        "force.com",
+        "salesforce",
+        "rest",
+        "oauth2",
+        "api"
+    ],
+    "license": "proprietary",
+    "type": "library",
+    "require": {
+        "php": ">=7.4",
+        "jms/serializer": "~1.4",
+        "ext-json": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6.5",
+        "friendsofphp/php-cs-fixer": "^2.0"
+    },
+    "suggest": {
+        "php-http/client-implementation": "Needed for sending HTTP requests. For example php-http/guzzle6-adapter.",
+        "blablacar/redis-client": "Needed if Redis will be used as the storage for tokens"
+    },
+    "autoload":{
+        "psr-4":{
+            "Mcm\\SalesforceClient\\": "src/"
+        }
+    },
+    "autoload-dev":{
+        "psr-4":{
+            "Mcm\\SalesforceClient\\": ["src/", "tests/"]
+        }
+    }
+}
