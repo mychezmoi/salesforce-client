@@ -8,20 +8,17 @@ use Mcm\SalesforceClient\QueryBuilder\Expr\Select\Typeof\WhenClause;
 
 class Typeof extends AbstractSelect implements ExprInterface
 {
-    /**
-     * @var string
-     */
-    protected $field;
+    protected string $field;
 
     /**
      * @var WhenClause[]
      */
-    protected $whenClauses;
+    protected array $whenClauses;
 
     /**
      * @var ElseClause|null
      */
-    protected $elseClause;
+    protected ?ElseClause $elseClause = null;
 
     public function __construct(string $field)
     {

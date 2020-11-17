@@ -15,6 +15,6 @@ class ObjectType extends AbstractFrom implements ExprInterface
 
     protected function getFromPart(): string
     {
-        return $this->objectType->value();
+        return $this->objectType;
     }
 }

@@ -2,13 +2,13 @@
 
 namespace Mcm\SalesforceClient\Client;
 
-use GuzzleHttp\Psr7\Request;
-use Http\Client\Exception\HttpException;
-use Http\Client\HttpClient;
-use Psr\Http\Message\ResponseInterface;
+use Mcm\SalesforceClient\Request\RequestInterface;
+
+use Symfony\Component\HttpClient\HttpClient;
+use Symfony\Contracts\HttpClient\ResponseInterface;
+
 use Mcm\SalesforceClient\Enum\ContentType;
 use Mcm\SalesforceClient\Generator\TokenGeneratorInterface;
-use Mcm\SalesforceClient\Request\RequestInterface;
 use Mcm\SalesforceClient\Security\Token\TokenInterface;
 
 class SalesforceClient
@@ -16,26 +16,14 @@ class SalesforceClient
     const UNAUTHORIZED = 401;
     const PREFIX = 'services/data/';
 
-    /**
-     * @var HttpClient
-     */
-    protected $client;
+    protected HttpClient $client;
 
-    /**
-     * @var TokenGeneratorInterface
-     */
-    protected $tokenManager;
+    protected TokenGeneratorInterface $tokenManager;
 
-    /**
-     * @var string
-     */
-    protected $version;
+    protected string $version;
 
-    public function __construct(
-        HttpClient $client,
-        TokenGeneratorInterface $tokenManager,
-        string $version
-    ) {
+    public function __construct(HttpClient $client, TokenGeneratorInterface $tokenManager, string $version)
+    {
         $this->client = $client;
         $this->tokenManager = $tokenManager;
         $this->version = $version;
@@ -47,7 +35,7 @@ class SalesforceClient
 
         try {
             $response = $this->sendRequest($token, $request);
-        } catch (HttpException $ex) {
+        } catch (\Exception $ex) {
             // Token is expired or invalid - get new and retry
             if (self::UNAUTHORIZED !== $ex->getCode()) {
                 throw $ex;
@@ -56,28 +44,33 @@ class SalesforceClient
             $response = $this->sendRequest($this->tokenManager->regenerateToken($token), $request);
         }
 
-        $responseBody = json_decode((string) $response->getBody(), true);
-
-        return !$responseBody ? [] : $responseBody;
+        return $response->toArray();
     }
 
     protected function sendRequest(TokenInterface $token, RequestInterface $request): ResponseInterface
     {
-        return $this->client->sendRequest(new Request(
-                $request->getMethod()->value(),
-                $this->getUri($token, $request),
-                $this->getHeaders($token, $request),
-                $this->parseParams($request->getParams(), $request->getContentType())
-            )
-        );
-    }
+        if ((string) $request->getContentType() === (string) ContentType::JSON) {
+            $content = ['json' => $request->getParams()];
+        }
 
-    protected function getHeaders(TokenInterface $token, RequestInterface $request): array
-    {
-        return [
-            'authorization' => sprintf('%s %s', $token->getTokenType(), $token->getAccessToken()),
-            'Content-type' => $request->getContentType()->value(),
-        ];
+        if ((string) $request->getContentType() === (string) ContentType::FORM) {
+            $content = ['body' => $request->getParams()];
+        }
+
+        $client = HttpClient::create();
+        $response = $client->request(
+            $request->getMethod(),
+            $this->getUri($token, $request),
+            [
+                'headers' => [
+                    'authorization' => sprintf('%s %s', $token->getTokenType(), $token->getAccessToken()),
+                    'Content-type' => $request->getContentType()
+                ],
+                $content
+            ]
+        );
+
+        return $response;
     }
 
     protected function getUri(TokenInterface $token, RequestInterface $request): string
@@ -87,14 +80,5 @@ class SalesforceClient
             rtrim($token->getInstanceUrl(), '/'),
             sprintf('%s%s/%s', self::PREFIX, $this->version, ltrim($request->getEndpoint(), '/'))
         );
-    }
-
-    protected function parseParams(array $params, ContentType $contentType): string
-    {
-        if ((string) $contentType === (string) ContentType::FORM()) {
-            return http_build_query($params);
-        }
-
-        return json_encode($params);
     }
 }

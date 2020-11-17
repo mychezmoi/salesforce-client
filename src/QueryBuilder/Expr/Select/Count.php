@@ -6,10 +6,7 @@ use Mcm\SalesforceClient\QueryBuilder\Expr\ExprInterface;
 
 class Count extends AbstractSelect implements ExprInterface
 {
-    /**
-     * @var string|null
-     */
-    private $countedValue;
+    private ?string $countedValue;
 
     public function __construct(string $countedValue = null)
     {

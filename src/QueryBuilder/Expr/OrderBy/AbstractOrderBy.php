@@ -15,8 +15,8 @@ abstract class AbstractOrderBy
         return sprintf(
             '%s %s %s',
             implode(', ', $this->getFields()),
-            $this->getOrder()->value(),
-            $this->getStrategy()->value()
+            $this->getOrder(),
+            $this->getStrategy()
         );
     }
 }

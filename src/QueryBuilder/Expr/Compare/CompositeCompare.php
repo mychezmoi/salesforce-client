@@ -8,27 +8,15 @@ use Mcm\SalesforceClient\QueryBuilder\Visitor\VisitorInterface;
 
 class CompositeCompare extends AbstractCompare implements ExprInterface, VisiteeInterface
 {
-    /**
-     * @var AbstractCompare
-     */
-    private $leftExpr;
+    private AbstractCompare $leftExpr;
 
-    /**
-     * @var Operator
-     */
-    private $operator;
+    private string $operator;
 
-    /**
-     * @var AbstractCompare
-     */
-    private $rightExpr;
+    private AbstractCompare $rightExpr;
 
-    /**
-     * @var bool
-     */
-    private $wrapPrevious;
+    private bool $wrapPrevious;
 
-    public function __construct(AbstractCompare $leftExpr, Operator $operator, AbstractCompare $rightExpr, bool $wrapPrevious = false)
+    public function __construct(AbstractCompare $leftExpr, string $operator, AbstractCompare $rightExpr, bool $wrapPrevious = false)
     {
         $this->leftExpr = $leftExpr;
         $this->operator = $operator;
@@ -41,7 +29,7 @@ class CompositeCompare extends AbstractCompare implements ExprInterface, Visitee
      */
     public function getComparator(): string
     {
-        return $this->operator->value();
+        return $this->operator;
     }
 
     /**

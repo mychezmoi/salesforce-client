@@ -7,10 +7,7 @@ namespace Mcm\SalesforceClient\QueryBuilder;
  */
 class Records implements \IteratorAggregate, \Countable
 {
-    /**
-     * @var array
-     */
-    private $raw;
+    private array $raw;
 
     public function __construct(array $raw)
     {

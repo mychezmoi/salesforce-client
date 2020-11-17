@@ -4,9 +4,9 @@ namespace Mcm\SalesforceClient\Storage;
 
 use Mcm\SalesforceClient\Security\Token\TokenInterface;
 
-class RequestTokenStorage implements TokenStorageInterface
+class ApcuTokenStorage implements TokenStorageInterface
 {
-    protected ?TokenInterface $token = null;
+    const TOKEN_NAME = 'salesforce_token';
 
     /**
      * @return TokenInterface
@@ -19,7 +19,7 @@ class RequestTokenStorage implements TokenStorageInterface
             throw new \LogicException('No token has been set');
         }
 
-        return $this->token;
+        return unserialize(apcu_fetch(self::TOKEN_NAME, $success));
     }
 
     /**
@@ -27,7 +27,9 @@ class RequestTokenStorage implements TokenStorageInterface
      */
     public function has(): bool
     {
-        return $this->token instanceof TokenInterface;
+        apcu_fetch(self::TOKEN_NAME, $success);
+
+        return $success;
     }
 
     /**
@@ -35,6 +37,6 @@ class RequestTokenStorage implements TokenStorageInterface
      */
     public function save(TokenInterface $token)
     {
-        $this->token = $token;
+        apcu_store(self::TOKEN_NAME, serialize($token));
     }
 }

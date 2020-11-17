@@ -9,7 +9,7 @@ class Fields extends AbstractSelect implements ExprInterface
     /**
      * @var string[]
      */
-    private $fields = [];
+    private array $fields = [];
 
     /**
      * @param string[] $fields

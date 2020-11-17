@@ -3,7 +3,7 @@
 namespace Mcm\SalesforceClient\Request;
 
 use Mcm\SalesforceClient\Enum\ContentType;
-use Mcm\SalesforceClient\Enum\RequestMethod;
+use Symfony\Component\HttpFoundation\Request;
 
 class Get implements RequestInterface
 {
@@ -27,15 +27,15 @@ class Get implements RequestInterface
      */
     public function getEndpoint(): string
     {
-        return sprintf(self::ENDPOINT, $this->objectType->value(), $this->id);
+        return sprintf(self::ENDPOINT, $this->objectType, $this->id);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getMethod(): RequestMethod
+    public function getMethod(): string
     {
-        return RequestMethod::GET();
+        return Request::METHOD_GET;
     }
 
     /**

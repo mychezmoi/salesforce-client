@@ -6,7 +6,7 @@ class DateTimeReplacingStrategy implements ReplacingStrategyInterface
 {
     public function isApplicable(Type $type): bool
     {
-        return Type::DATETIME() === $type;
+        return Type::DATETIME === $type;
     }
 
     public function replace($value): string

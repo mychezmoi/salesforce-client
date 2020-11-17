@@ -3,16 +3,13 @@
 namespace Mcm\SalesforceClient\Request;
 
 use Mcm\SalesforceClient\Enum\ContentType;
-use Mcm\SalesforceClient\Enum\RequestMethod;
+use Symfony\Component\HttpFoundation\Request;
 
 class Query implements RequestInterface
 {
     const ENDPOINT = '/query/';
 
-    /**
-     * @var string
-     */
-    private $queryString;
+    private string $queryString;
 
     public function __construct(string $queryString)
     {
@@ -28,9 +25,9 @@ class Query implements RequestInterface
         );
     }
 
-    public function getMethod(): RequestMethod
+    public function getMethod(): string
     {
-        return RequestMethod::GET();
+        return Request::METHOD_GET;
     }
 
     public function getParams(): array
@@ -38,8 +35,8 @@ class Query implements RequestInterface
         return [];
     }
 
-    public function getContentType(): ContentType
+    public function getContentType(): string
     {
-        return ContentType::FORM();
+        return ContentType::FORM;
     }
 }

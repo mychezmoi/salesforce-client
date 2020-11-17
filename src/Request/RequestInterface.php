@@ -2,9 +2,6 @@
 
 namespace Mcm\SalesforceClient\Request;
 
-use Mcm\SalesforceClient\Enum\ContentType;
-use Mcm\SalesforceClient\Enum\RequestMethod;
-
 interface RequestInterface
 {
     public function getMethod(): string;

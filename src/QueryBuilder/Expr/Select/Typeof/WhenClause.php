@@ -7,15 +7,9 @@ use Mcm\SalesforceClient\QueryBuilder\Expr\Select\Fields;
 
 class WhenClause implements ExprInterface
 {
-    /**
-     * @var string
-     */
-    protected $type;
+    protected string $type;
 
-    /**
-     * @var Fields
-     */
-    protected $fields;
+    protected Fields $fields;
 
     public function __construct(string $type, Fields $fields)
     {

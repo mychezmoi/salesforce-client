@@ -2,16 +2,7 @@
 
 namespace Mcm\SalesforceClient\QueryBuilder\Visitor\Parameters;
 
-use Eloquent\Enumeration\AbstractEnumeration;
-
-/**
- * @method static $this STRING()
- * @method static $this INT()
- * @method static $this DATETIME()
- * @method static $this FLOAT()
- * @method static $this BOOL()
- */
-class Type extends AbstractEnumeration
+class Type
 {
     const STRING = 'string';
     const INT = 'int';

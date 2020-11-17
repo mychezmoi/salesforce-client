@@ -3,7 +3,7 @@
 namespace Mcm\SalesforceClient\Request;
 
 use Mcm\SalesforceClient\Enum\ContentType;
-use Mcm\SalesforceClient\Enum\RequestMethod;
+use Symfony\Component\HttpFoundation\Request;
 
 class Update implements RequestInterface
 {
@@ -27,15 +27,15 @@ class Update implements RequestInterface
      */
     public function getEndpoint(): string
     {
-        return sprintf(self::ENDPOINT, $this->objectType->value(), $this->id);
+        return sprintf(self::ENDPOINT, $this->objectType, $this->id);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getMethod(): RequestMethod
+    public function getMethod(): string
     {
-        return RequestMethod::PATCH();
+        return Request::METHOD_PATCH;
     }
 
     /**
@@ -49,8 +49,8 @@ class Update implements RequestInterface
     /**
      * {@inheritdoc}
      */
-    public function getContentType(): ContentType
+    public function getContentType(): string
     {
-        return ContentType::JSON();
+        return ContentType::JSON;
     }
 }

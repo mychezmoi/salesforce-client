@@ -7,87 +7,63 @@ use JMS\Serializer\Annotation\Type;
 abstract class AbstractSObject
 {
     /**
-     * @var string
      * @Type("string")
      */
-    protected $id;
+    protected string $id;
 
     /**
-     * @var string
      * @Type("string")
      */
-    protected $createdById;
+    protected string $createdById;
 
     /**
-     * @var \DateTime
      * @Type("DateTime<'Y-m-d\TH:i:s.\0\0\0O'>")
      */
-    protected $createdDate;
+    protected \DateTime $createdDate;
 
     /**
-     * @var string
      * @Type("string")
      */
-    protected $lastModifiedById;
+    protected string $lastModifiedById;
 
     /**
-     * @var \DateTime
      * @Type("DateTime<'Y-m-d\TH:i:s.\0\0\0O'>")
      */
-    protected $lastModifiedDate;
+    protected \DateTime $lastModifiedDate;
 
     /**
-     * @var \DateTime
      * @Type("DateTime<'Y-m-d\TH:i:s.\0\0\0O'>")
      */
-    protected $systemModstamp;
+    protected \DateTime $systemModstamp;
 
     abstract public static function getSObjectName(): string;
 
-    /**
-     * @return string
-     */
-    public function getId()
+    public function getId() : string
     {
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
-    public function getCreatedById()
+    public function getCreatedById() : string
     {
         return $this->createdById;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getCreatedDate()
+    public function getCreatedDate() : \DateTime
     {
         return $this->createdDate;
     }
 
-    /**
-     * @return string
-     */
-    public function getLastModifiedById()
+    public function getLastModifiedById() : string
     {
         return $this->lastModifiedById;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getLastModifiedDate()
+    public function getLastModifiedDate() : \DateTime
     {
         return $this->lastModifiedDate;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getSystemModstamp()
+    public function getSystemModstamp() : \DateTime
     {
         return $this->systemModstamp;
     }

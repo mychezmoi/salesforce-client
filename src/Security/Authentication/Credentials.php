@@ -4,25 +4,13 @@ namespace Mcm\SalesforceClient\Security\Authentication;
 
 class Credentials
 {
-    /**
-     * @var string
-     */
-    private $clientId;
+    private string $clientId;
 
-    /**
-     * @var string
-     */
-    private $clientSecret;
+    private string $clientSecret;
 
-    /**
-     * @var string
-     */
-    private $grantType;
+    private string $grantType;
 
-    /**
-     * @var array
-     */
-    private $extraParams;
+    private array $extraParams;
 
     public function __construct(string $clientId, string $clientSecret, string $grantType, array $extraParams = [])
     {

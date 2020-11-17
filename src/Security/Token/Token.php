@@ -7,25 +7,13 @@ namespace Mcm\SalesforceClient\Security\Token;
  */
 class Token implements TokenInterface
 {
-    /**
-     * @var string
-     */
-    protected $tokenType;
+    protected string $tokenType;
 
-    /**
-     * @var string
-     */
-    protected $accessToken;
+    protected string $accessToken;
 
-    /**
-     * @var string
-     */
-    protected $refreshToken;
+    protected string $refreshToken;
 
-    /**
-     * @var string
-     */
-    protected $instanceUrl;
+    protected string $instanceUrl;
 
     /**
      * @param string $tokenType

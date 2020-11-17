@@ -9,26 +9,12 @@ use Mcm\SalesforceClient\Storage\TokenStorageInterface;
 
 class TokenGenerator implements TokenGeneratorInterface
 {
-    /**
-     * @var Credentials
-     */
-    protected $credentials;
+    protected Credentials $credentials;
 
-    /**
-     * @var AuthenticatorInterface
-     */
-    protected $authenticator;
+    protected AuthenticatorInterface $authenticator;
 
-    /**
-     * @var TokenStorageInterface
-     */
-    protected $tokenStorage;
+    protected TokenStorageInterface $tokenStorage;
 
-    /**
-     * @param Credentials            $credentials
-     * @param AuthenticatorInterface $authenticator
-     * @param TokenStorageInterface  $tokenStorage
-     */
     public function __construct(
         Credentials $credentials,
         AuthenticatorInterface $authenticator,

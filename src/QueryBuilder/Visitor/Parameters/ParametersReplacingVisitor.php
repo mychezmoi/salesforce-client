@@ -8,15 +8,9 @@ use Mcm\SalesforceClient\QueryBuilder\Visitor\VisitorInterface;
 
 class ParametersReplacingVisitor implements VisitorInterface
 {
-    /**
-     * @var array
-     */
-    private $parameters;
+    private array $parameters;
 
-    /**
-     * @var ReplacingStrategyCollection
-     */
-    private $replacingStrategies;
+    private ReplacingStrategyCollection $replacingStrategies;
 
     public function __construct(array $parameters)
     {

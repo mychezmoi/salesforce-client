@@ -9,7 +9,7 @@ class MultipleGrouping extends AbstractSelect implements ExprInterface
     /**
      * @var Grouping[]
      */
-    protected $groupings;
+    protected array $groupings;
 
     /**
      * @param Grouping[] $groupings

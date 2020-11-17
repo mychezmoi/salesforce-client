@@ -6,15 +6,9 @@ use Mcm\SalesforceClient\QueryBuilder\Visitor\VisitorInterface;
 
 abstract class AbstractSingleCompare extends AbstractCompare
 {
-    /**
-     * @var string
-     */
-    private $left;
+    private string $left;
 
-    /**
-     * @var string
-     */
-    private $right;
+    private string $right;
 
     public function __construct(string $left, string $right)
     {

@@ -4,15 +4,12 @@ namespace Mcm\SalesforceClient\QueryBuilder\Visitor\Parameters;
 
 class ReplacingStrategyCollection implements \ArrayAccess
 {
-    /**
-     * @var ReplacingStrategyInterface
-     */
-    protected $defaultStrategy;
+    protected ReplacingStrategyInterface $defaultStrategy;
 
     /**
      * @var ReplacingStrategyInterface[]
      */
-    protected $strategies;
+    protected array $strategies;
 
     public function __construct()
     {

@@ -6,15 +6,9 @@ use Mcm\SalesforceClient\QueryBuilder\Visitor\VisitorInterface;
 
 abstract class AbstractMultiCompare extends AbstractCompare
 {
-    /**
-     * @var string
-     */
-    private $left;
+    private string $left;
 
-    /**
-     * @var array
-     */
-    private $values;
+    private array $values;
 
     public function __construct(string $left, array $values)
     {

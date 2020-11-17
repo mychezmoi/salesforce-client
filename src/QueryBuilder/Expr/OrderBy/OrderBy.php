@@ -6,20 +6,11 @@ use Mcm\SalesforceClient\QueryBuilder\Expr\ExprInterface;
 
 class OrderBy extends AbstractOrderBy implements ExprInterface
 {
-    /**
-     * @var array
-     */
-    private $fields;
+    private array $fields;
 
-    /**
-     * @var Order
-     */
-    private $order;
+    private Order $order;
 
-    /**
-     * @var Strategy
-     */
-    private $strategy;
+    private Strategy $strategy;
 
     public function __construct(
         array $fields,
@@ -27,8 +18,8 @@ class OrderBy extends AbstractOrderBy implements ExprInterface
         Strategy $strategy = null
     ) {
         $this->fields = $fields;
-        $this->order = null === $order ? Order::ASC() : $order;
-        $this->strategy = null === $strategy ? Strategy::NULLS_FIRST() : $strategy;
+        $this->order = null === $order ? Order::ASC : $order;
+        $this->strategy = null === $strategy ? Strategy::NULLS_FIRST : $strategy;
     }
 
     /**

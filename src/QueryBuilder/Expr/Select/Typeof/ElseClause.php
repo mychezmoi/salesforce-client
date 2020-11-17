@@ -7,10 +7,7 @@ use Mcm\SalesforceClient\QueryBuilder\Expr\Select\Fields;
 
 class ElseClause implements ExprInterface
 {
-    /**
-     * @var Fields
-     */
-    protected $fields;
+    protected Fields $fields;
 
     public function __construct(Fields $fields)
     {

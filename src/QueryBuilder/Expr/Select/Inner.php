@@ -7,10 +7,7 @@ use Mcm\SalesforceClient\QueryBuilder\Query;
 
 class Inner extends AbstractSelect implements ExprInterface
 {
-    /**
-     * @var Query
-     */
-    private $innerQuery;
+    private Query $innerQuery;
 
     public function __construct(Query $query)
     {

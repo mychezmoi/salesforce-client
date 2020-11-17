@@ -16,15 +16,9 @@ class SObjectRepository implements SObjectRepositoryInterface
     const GROUP_UPDATE = 'update';
     const GROUP_CREATE = 'create';
 
-    /**
-     * @var SalesforceClient
-     */
-    protected $client;
+    protected SalesforceClient $client;
 
-    /**
-     * @var ArrayTransformerInterface
-     */
-    protected $serializer;
+    protected ArrayTransformerInterface $serializer;
 
     public function __construct(SalesforceClient $client, ArrayTransformerInterface $serializer)
     {
@@ -33,7 +27,7 @@ class SObjectRepository implements SObjectRepositoryInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @throws \Exception
      */
     public function create(AbstractSObject $object)
     {
@@ -50,7 +44,7 @@ class SObjectRepository implements SObjectRepositoryInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @throws \Exception
      */
     public function delete(AbstractSObject $object)
     {
@@ -58,7 +52,7 @@ class SObjectRepository implements SObjectRepositoryInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @throws \Exception
      */
     public function update(AbstractSObject $object)
     {
@@ -81,7 +75,7 @@ class SObjectRepository implements SObjectRepositoryInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @throws \Exception
      */
     public function getFieldValues(string $class, string $id, array $fields = []): array
     {

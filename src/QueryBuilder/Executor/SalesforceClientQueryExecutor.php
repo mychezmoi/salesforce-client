@@ -10,16 +10,16 @@ use Mcm\SalesforceClient\Request\QueryNext;
 
 class SalesforceClientQueryExecutor implements QueryExecutorInterface
 {
-    /**
-     * @var SalesforceClient
-     */
-    private $client;
+    private SalesforceClient $client;
 
     public function __construct(SalesforceClient $client)
     {
         $this->client = $client;
     }
 
+    /**
+     * @throws \Exception
+     */
     public function getRecords(Query $query): Records
     {
         $request = new RequestQuery($query->parse());

@@ -12,10 +12,7 @@ use Mcm\SalesforceClient\QueryBuilder\Expr\Select\AbstractSelect;
 
 class QueryBuilder
 {
-    /**
-     * @var Query
-     */
-    private $query;
+    private Query $query;
 
     public function __construct()
     {
@@ -47,14 +44,14 @@ class QueryBuilder
 
     public function andWhere(AbstractCompare $where, bool $wrapPrevious = false): self
     {
-        $this->addOrUpdateWhere($where, Operator::CONJUNCTION(), $wrapPrevious);
+        $this->addOrUpdateWhere($where, Operator::CONJUNCTION, $wrapPrevious);
 
         return $this;
     }
 
     public function orWhere(AbstractCompare $where, bool $wrapPrevious = false): self
     {
-        $this->addOrUpdateWhere($where, Operator::DISJUNCTION(), $wrapPrevious);
+        $this->addOrUpdateWhere($where, Operator::DISJUNCTION, $wrapPrevious);
 
         return $this;
     }
@@ -75,19 +72,19 @@ class QueryBuilder
 
     public function andHaving(AbstractCompare $having, bool $wrapPrevious = false): self
     {
-        $this->addOrUpdateHaving($having, Operator::CONJUNCTION(), $wrapPrevious);
+        $this->addOrUpdateHaving($having, Operator::CONJUNCTION, $wrapPrevious);
 
         return $this;
     }
 
     public function orHaving(AbstractCompare $having, bool $wrapPrevious = false): self
     {
-        $this->addOrUpdateHaving($having, Operator::DISJUNCTION(), $wrapPrevious);
+        $this->addOrUpdateHaving($having, Operator::DISJUNCTION, $wrapPrevious);
 
         return $this;
     }
 
-    private function addOrUpdateWhere(AbstractCompare $where, Operator $operator, bool $wrapPrevious)
+    private function addOrUpdateWhere(AbstractCompare $where, string $operator, bool $wrapPrevious)
     {
         $this->query->setWhere($this->createCompositeCompare(
             $where,
@@ -97,7 +94,7 @@ class QueryBuilder
         ));
     }
 
-    private function addOrUpdateHaving(AbstractCompare $having, Operator $operator, bool $wrapPrevious)
+    private function addOrUpdateHaving(AbstractCompare $having, string $operator, bool $wrapPrevious)
     {
         $this->query->setHaving($this->createCompositeCompare(
             $having,
@@ -109,7 +106,7 @@ class QueryBuilder
 
     private function createCompositeCompare(
         AbstractCompare $compare,
-        Operator $operator,
+        string $operator,
         bool $wrapPrevious,
         AbstractCompare $currentCompare = null
     ): AbstractCompare {

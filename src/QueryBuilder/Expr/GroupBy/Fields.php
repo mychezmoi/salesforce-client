@@ -6,14 +6,11 @@ use Mcm\SalesforceClient\QueryBuilder\Expr\ExprInterface;
 
 class Fields extends AbstractGroupBy implements ExprInterface
 {
-    /**
-     * @var array
-     */
-    protected $fields;
+    protected array $fields;
 
-    public function __construct(array $field)
+    public function __construct(array $fields)
     {
-        $this->fields = $field;
+        $this->fields = $fields;
     }
 
     /**

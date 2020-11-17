@@ -2,13 +2,7 @@
 
 namespace Mcm\SalesforceClient\QueryBuilder\Expr\Compare;
 
-use Eloquent\Enumeration\AbstractEnumeration;
-
-/**
- * @method static $this CONJUNCTION()
- * @method static $this DISJUNCTION()
- */
-class Operator extends AbstractEnumeration
+class Operator
 {
     const CONJUNCTION = 'AND';
     const DISJUNCTION = 'OR';

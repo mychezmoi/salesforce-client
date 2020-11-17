@@ -6,7 +6,7 @@ class BoolReplacingStrategy implements ReplacingStrategyInterface
 {
     public function isApplicable(Type $type): bool
     {
-        return Type::BOOL() === $type;
+        return Type::BOOL === $type;
     }
 
     public function replace($value): string

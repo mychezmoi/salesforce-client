@@ -6,15 +6,9 @@ use Mcm\SalesforceClient\QueryBuilder\Expr\ExprInterface;
 
 class Grouping extends AbstractSelect implements ExprInterface
 {
-    /**
-     * @var string
-     */
-    protected $fieldName;
+    protected string $fieldName;
 
-    /**
-     * @var string
-     */
-    protected $targetName;
+    protected string $targetName;
 
     public function __construct(string $fieldName, string $targetName)
     {
