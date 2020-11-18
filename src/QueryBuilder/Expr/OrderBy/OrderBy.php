@@ -16,9 +16,10 @@ class OrderBy extends AbstractOrderBy implements ExprInterface
         array $fields,
         Order $order = null,
         Strategy $strategy = null
-    ) {
-        $this->fields = $fields;
-        $this->order = null === $order ? Order::ASC : $order;
+    )
+    {
+        $this->fields   = $fields;
+        $this->order    = null === $order ? Order::ASC : $order;
         $this->strategy = null === $strategy ? Strategy::NULLS_FIRST : $strategy;
     }
 

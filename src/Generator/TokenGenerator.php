@@ -19,10 +19,11 @@ class TokenGenerator implements TokenGeneratorInterface
         Credentials $credentials,
         AuthenticatorInterface $authenticator,
         TokenStorageInterface $tokenStorage
-    ) {
-        $this->credentials = $credentials;
+    )
+    {
+        $this->credentials   = $credentials;
         $this->authenticator = $authenticator;
-        $this->tokenStorage = $tokenStorage;
+        $this->tokenStorage  = $tokenStorage;
     }
 
     /**

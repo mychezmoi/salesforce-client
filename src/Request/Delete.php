@@ -16,7 +16,7 @@ class Delete implements RequestInterface
     public function __construct(string $objectType, string $id)
     {
         $this->objectType = $objectType;
-        $this->id = $id;
+        $this->id         = $id;
     }
 
     /**

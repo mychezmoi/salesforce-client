@@ -11,6 +11,6 @@ class IntReplacingStrategy implements ReplacingStrategyInterface
 
     public function replace($value): string
     {
-        return (string) intval($value);
+        return (string)intval($value);
     }
 }

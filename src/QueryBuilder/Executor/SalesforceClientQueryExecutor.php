@@ -23,7 +23,7 @@ class SalesforceClientQueryExecutor implements QueryExecutorInterface
     public function getRecords(Query $query): Records
     {
         $request = new RequestQuery($query->parse());
-        $result = $this->client->doRequest($request);
+        $result  = $this->client->doRequest($request);
 
         return new Records($result);
     }
@@ -39,7 +39,7 @@ class SalesforceClientQueryExecutor implements QueryExecutorInterface
             return null;
         }
 
-        $request = new QueryNext($records->getNextIdentifier());
+        $request    = new QueryNext($records->getNextIdentifier());
         $nextResult = $this->client->doRequest($request);
 
         return new Records($nextResult);

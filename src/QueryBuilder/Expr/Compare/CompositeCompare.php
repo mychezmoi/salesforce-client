@@ -16,11 +16,16 @@ class CompositeCompare extends AbstractCompare implements ExprInterface, Visitee
 
     private bool $wrapPrevious;
 
-    public function __construct(AbstractCompare $leftExpr, string $operator, AbstractCompare $rightExpr, bool $wrapPrevious = false)
+    public function __construct(
+        AbstractCompare $leftExpr,
+        string $operator,
+        AbstractCompare $rightExpr,
+        bool $wrapPrevious = false
+    )
     {
-        $this->leftExpr = $leftExpr;
-        $this->operator = $operator;
-        $this->rightExpr = $rightExpr;
+        $this->leftExpr     = $leftExpr;
+        $this->operator     = $operator;
+        $this->rightExpr    = $rightExpr;
         $this->wrapPrevious = $wrapPrevious;
     }
 

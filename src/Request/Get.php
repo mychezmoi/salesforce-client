@@ -18,8 +18,8 @@ class Get implements RequestInterface
     public function __construct(string $objectType, string $id, array $params = [])
     {
         $this->objectType = $objectType;
-        $this->id = $id;
-        $this->params = $params;
+        $this->id         = $id;
+        $this->params     = $params;
     }
 
     /**

@@ -2,19 +2,20 @@
 
 namespace Mcm\SalesforceClient\Security\Authentication;
 
-use Mcm\SalesforceClient\Enum\ContentType;
 use Symfony\Component\HttpClient\HttpClient;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Component\HttpFoundation\Request;
 
+use Mcm\SalesforceClient\Enum\ContentType;
 use Mcm\SalesforceClient\Security\Authentication\Strategy\RegenerateStrategyInterface;
 use Mcm\SalesforceClient\Security\Token\Token;
 use Mcm\SalesforceClient\Security\Token\TokenInterface;
 
 class Authenticator implements AuthenticatorInterface
 {
-    const ENDPOINT = '/services/oauth2/token';
+    const TOKEN_URL = 'https://login.salesforce.com/services/oauth2/token';
 
-    protected HttpClient $client;
+    protected HttpClientInterface $client;
 
     /**
      * @var RegenerateStrategyInterface[]
@@ -22,12 +23,11 @@ class Authenticator implements AuthenticatorInterface
     protected array $regenerateStrategies;
 
     /**
-     * @param HttpClient                    $client
      * @param RegenerateStrategyInterface[] $regenerateStrategies
      */
-    public function __construct(HttpClient $client, array $regenerateStrategies = [])
+    public function __construct(array $regenerateStrategies = [])
     {
-        $this->client = $client;
+        $this->client               = HttpClient::create();
         $this->regenerateStrategies = $regenerateStrategies;
     }
 
@@ -37,14 +37,13 @@ class Authenticator implements AuthenticatorInterface
     public function authenticate(Credentials $credentials): TokenInterface
     {
         try {
+            $response = $this->client->request(
 
-            $client = HttpClient::create();
-            $response = $client->request(
                 Request::METHOD_POST,
-                self::ENDPOINT,
+                self::TOKEN_URL,
                 [
                     'Content-type' => ContentType::FORM,
-                    'body' => http_build_query($credentials->getParameters())
+                    'body'         => http_build_query($credentials->getParameters()),
                 ]
             )->toArray();
 

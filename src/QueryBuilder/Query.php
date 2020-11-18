@@ -177,12 +177,15 @@ class Query
 
     private function parseSelect(): string
     {
-        $selects = implode(', ', array_map(
-            function (AbstractSelect $select): string {
-                return $select->asSOQL();
-            },
-            $this->selects
-        ));
+        $selects = implode(
+            ', ',
+            array_map(
+                function(AbstractSelect $select): string {
+                    return $select->asSOQL();
+                },
+                $this->selects
+            )
+        );
 
         return sprintf('SELECT %s FROM %s', $selects, $this->from->asSOQL());
     }

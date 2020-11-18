@@ -851,13 +851,13 @@ class Contact extends AbstractSObject
             return;
         }
 
-        $this->mailingCity = $this->mailingAddress->getCity();
-        $this->mailingCountry = $this->mailingAddress->getCountry();
-        $this->mailingLatitude = $this->mailingAddress->getLatitude();
-        $this->mailingLongitude = $this->mailingAddress->getLongitude();
+        $this->mailingCity       = $this->mailingAddress->getCity();
+        $this->mailingCountry    = $this->mailingAddress->getCountry();
+        $this->mailingLatitude   = $this->mailingAddress->getLatitude();
+        $this->mailingLongitude  = $this->mailingAddress->getLongitude();
         $this->mailingPostalCode = $this->mailingAddress->getPostalCode();
-        $this->mailingState = $this->mailingAddress->getState();
-        $this->mailingStreet = $this->mailingAddress->getStreet();
+        $this->mailingState      = $this->mailingAddress->getState();
+        $this->mailingStreet     = $this->mailingAddress->getStreet();
     }
 
     /**
@@ -869,12 +869,12 @@ class Contact extends AbstractSObject
             return;
         }
 
-        $this->otherCity = $this->otherAddress->getCity();
-        $this->otherCountry = $this->otherAddress->getCountry();
-        $this->otherLatitude = $this->otherAddress->getLatitude();
-        $this->otherLongitude = $this->otherAddress->getLongitude();
+        $this->otherCity       = $this->otherAddress->getCity();
+        $this->otherCountry    = $this->otherAddress->getCountry();
+        $this->otherLatitude   = $this->otherAddress->getLatitude();
+        $this->otherLongitude  = $this->otherAddress->getLongitude();
         $this->otherPostalCode = $this->otherAddress->getPostalCode();
-        $this->otherState = $this->otherAddress->getState();
-        $this->otherStreet = $this->otherAddress->getStreet();
+        $this->otherState      = $this->otherAddress->getState();
+        $this->otherStreet     = $this->otherAddress->getStreet();
     }
 }

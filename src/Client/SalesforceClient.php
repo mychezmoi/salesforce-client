@@ -5,7 +5,9 @@ namespace Mcm\SalesforceClient\Client;
 use Mcm\SalesforceClient\Request\RequestInterface;
 
 use Symfony\Component\HttpClient\HttpClient;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
+use Symfony\Component\HttpFoundation\Response;
 
 use Mcm\SalesforceClient\Enum\ContentType;
 use Mcm\SalesforceClient\Generator\TokenGeneratorInterface;
@@ -13,20 +15,19 @@ use Mcm\SalesforceClient\Security\Token\TokenInterface;
 
 class SalesforceClient
 {
-    const UNAUTHORIZED = 401;
     const PREFIX = 'services/data/';
 
-    protected HttpClient $client;
+    protected HttpClientInterface $client;
 
     protected TokenGeneratorInterface $tokenManager;
 
     protected string $version;
 
-    public function __construct(HttpClient $client, TokenGeneratorInterface $tokenManager, string $version)
+    public function __construct(TokenGeneratorInterface $tokenManager, string $version)
     {
-        $this->client = $client;
+        $this->client       = HttpClient::create();
         $this->tokenManager = $tokenManager;
-        $this->version = $version;
+        $this->version      = $version;
     }
 
     public function doRequest(RequestInterface $request): array
@@ -35,38 +36,41 @@ class SalesforceClient
 
         try {
             $response = $this->sendRequest($token, $request);
-        } catch (\Exception $ex) {
+
             // Token is expired or invalid - get new and retry
-            if (self::UNAUTHORIZED !== $ex->getCode()) {
-                throw $ex;
+            if ($response->getStatusCode() == Response::HTTP_UNAUTHORIZED) {
+                $response = $this->sendRequest($this->tokenManager->regenerateToken($token), $request);
             }
 
-            $response = $this->sendRequest($this->tokenManager->regenerateToken($token), $request);
-        }
+            return $response->toArray();
 
-        return $response->toArray();
+        } catch (\Exception $ex) {
+
+            //@todo: handle exceptions
+
+            throw $ex;
+        }
     }
 
     protected function sendRequest(TokenInterface $token, RequestInterface $request): ResponseInterface
     {
-        if ((string) $request->getContentType() === (string) ContentType::JSON) {
+        if ((string)$request->getContentType() === (string)ContentType::JSON) {
             $content = ['json' => $request->getParams()];
         }
 
-        if ((string) $request->getContentType() === (string) ContentType::FORM) {
+        if ((string)$request->getContentType() === (string)ContentType::FORM) {
             $content = ['body' => $request->getParams()];
         }
 
-        $client = HttpClient::create();
-        $response = $client->request(
+        $response = $this->client->request(
             $request->getMethod(),
             $this->getUri($token, $request),
             [
                 'headers' => [
                     'authorization' => sprintf('%s %s', $token->getTokenType(), $token->getAccessToken()),
-                    'Content-type' => $request->getContentType()
+                    'Content-type'  => $request->getContentType(),
                 ],
-                $content
+                $content,
             ]
         );
 

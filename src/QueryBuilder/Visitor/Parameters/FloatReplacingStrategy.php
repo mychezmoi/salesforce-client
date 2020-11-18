@@ -11,6 +11,6 @@ class FloatReplacingStrategy implements ReplacingStrategyInterface
 
     public function replace($value): string
     {
-        return (string) floatval($value);
+        return (string)floatval($value);
     }
 }

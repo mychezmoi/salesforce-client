@@ -13,7 +13,7 @@ class WhenClause implements ExprInterface
 
     public function __construct(string $type, Fields $fields)
     {
-        $this->type = $type;
+        $this->type   = $type;
         $this->fields = $fields;
     }
 

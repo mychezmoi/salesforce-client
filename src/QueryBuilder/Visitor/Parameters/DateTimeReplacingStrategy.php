@@ -15,7 +15,7 @@ class DateTimeReplacingStrategy implements ReplacingStrategyInterface
             $value = sprintf('@%d', $value);
         }
 
-        if (!$value  instanceof \DateTimeInterface) {
+        if (!$value instanceof \DateTimeInterface) {
             $value = new \DateTime($value);
         }
 

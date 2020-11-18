@@ -14,7 +14,7 @@ interface AuthenticatorInterface
     public function authenticate(Credentials $credentials): TokenInterface;
 
     /**
-     * @param Credentials    $credentials
+     * @param Credentials $credentials
      * @param TokenInterface $token
      *
      * @return TokenInterface

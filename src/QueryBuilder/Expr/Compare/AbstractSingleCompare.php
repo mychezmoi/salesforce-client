@@ -12,7 +12,7 @@ abstract class AbstractSingleCompare extends AbstractCompare
 
     public function __construct(string $left, string $right)
     {
-        $this->left = $left;
+        $this->left  = $left;
         $this->right = $right;
     }
 

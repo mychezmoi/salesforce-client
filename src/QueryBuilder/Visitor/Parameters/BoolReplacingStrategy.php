@@ -15,7 +15,7 @@ class BoolReplacingStrategy implements ReplacingStrategyInterface
             return $value;
         }
 
-        $boolValue = (bool) $value;
+        $boolValue = (bool)$value;
 
         return $boolValue ? 'true' : 'false';
     }

@@ -23,10 +23,10 @@ class Token implements TokenInterface
      */
     public function __construct(string $tokenType, string $accessToken, string $instanceUrl, string $refreshToken = '')
     {
-        $this->tokenType = $tokenType;
-        $this->accessToken = $accessToken;
+        $this->tokenType    = $tokenType;
+        $this->accessToken  = $accessToken;
         $this->refreshToken = $refreshToken;
-        $this->instanceUrl = $instanceUrl;
+        $this->instanceUrl  = $instanceUrl;
     }
 
     /**
@@ -66,12 +66,14 @@ class Token implements TokenInterface
      */
     public function serialize(): string
     {
-        return serialize([
-            $this->tokenType,
-            $this->accessToken,
-            $this->instanceUrl,
-            $this->refreshToken,
-        ]);
+        return serialize(
+            [
+                $this->tokenType,
+                $this->accessToken,
+                $this->instanceUrl,
+                $this->refreshToken,
+            ]
+        );
     }
 
     /**
@@ -79,11 +81,11 @@ class Token implements TokenInterface
      */
     public function unserialize($serialized)
     {
-        list(
+        [
             $this->tokenType,
             $this->accessToken,
             $this->instanceUrl,
-            $this->refreshToken
-        ) = unserialize($serialized);
+            $this->refreshToken,
+        ] = unserialize($serialized);
     }
 }

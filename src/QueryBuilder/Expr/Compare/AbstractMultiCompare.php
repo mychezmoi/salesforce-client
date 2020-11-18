@@ -12,7 +12,7 @@ abstract class AbstractMultiCompare extends AbstractCompare
 
     public function __construct(string $left, array $values)
     {
-        $this->left = $left;
+        $this->left   = $left;
         $this->values = $values;
     }
 

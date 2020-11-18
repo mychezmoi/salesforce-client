@@ -16,7 +16,7 @@ class Create implements RequestInterface
     public function __construct(string $objectType, array $params = [])
     {
         $this->objectType = $objectType;
-        $this->params = $params;
+        $this->params     = $params;
     }
 
     /**

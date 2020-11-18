@@ -13,7 +13,7 @@ class ReplacingStrategyCollection implements \ArrayAccess
 
     public function __construct()
     {
-        $this->strategies = [
+        $this->strategies      = [
             new StringReplacingStrategy(),
             new IntReplacingStrategy(),
             new DateTimeReplacingStrategy(),
@@ -47,7 +47,7 @@ class ReplacingStrategyCollection implements \ArrayAccess
     }
 
     /**
-     * @param mixed                      $offset not used here
+     * @param mixed $offset not used here
      * @param ReplacingStrategyInterface $value
      *
      * @throws \InvalidArgumentException if $value is not an instance of ReplacingStrategyInterface

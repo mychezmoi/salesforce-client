@@ -14,16 +14,18 @@ class ParametersReplacingVisitor implements VisitorInterface
 
     public function __construct(array $parameters)
     {
-        $this->parameters = $parameters;
+        $this->parameters          = $parameters;
         $this->replacingStrategies = new ReplacingStrategyCollection();
     }
 
     public function visitSingleCompare(AbstractSingleCompare $compare)
     {
-        $compare->update([
-            'left' => $this->replaceParameters($compare->getLeft()),
-            'right' => $this->replaceParameters($compare->getRight()),
-        ]);
+        $compare->update(
+            [
+                'left'  => $this->replaceParameters($compare->getLeft()),
+                'right' => $this->replaceParameters($compare->getRight()),
+            ]
+        );
     }
 
     public function visitMultiCompare(AbstractMultiCompare $multiCompare)
@@ -38,7 +40,7 @@ class ParametersReplacingVisitor implements VisitorInterface
             $type = null;
 
             if (is_array($value)) {
-                $type = $value['type'];
+                $type  = $value['type'];
                 $value = $value['value'];
             }
 

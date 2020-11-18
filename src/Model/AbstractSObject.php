@@ -38,32 +38,32 @@ abstract class AbstractSObject
 
     abstract public static function getSObjectName(): string;
 
-    public function getId() : string
+    public function getId(): string
     {
         return $this->id;
     }
 
-    public function getCreatedById() : string
+    public function getCreatedById(): string
     {
         return $this->createdById;
     }
 
-    public function getCreatedDate() : \DateTime
+    public function getCreatedDate(): \DateTime
     {
         return $this->createdDate;
     }
 
-    public function getLastModifiedById() : string
+    public function getLastModifiedById(): string
     {
         return $this->lastModifiedById;
     }
 
-    public function getLastModifiedDate() : \DateTime
+    public function getLastModifiedDate(): \DateTime
     {
         return $this->lastModifiedDate;
     }
 
-    public function getSystemModstamp() : \DateTime
+    public function getSystemModstamp(): \DateTime
     {
         return $this->systemModstamp;
     }

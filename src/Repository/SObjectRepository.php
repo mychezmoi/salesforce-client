@@ -31,10 +31,12 @@ class SObjectRepository implements SObjectRepositoryInterface
      */
     public function create(AbstractSObject $object)
     {
-        $response = $this->client->doRequest(new Create(
-            $object::getSObjectName(),
-            $this->serializer->toArray($object, SerializationContext::create()->setGroups([self::GROUP_CREATE]))
-        ));
+        $response = $this->client->doRequest(
+            new Create(
+                $object::getSObjectName(),
+                $this->serializer->toArray($object, SerializationContext::create()->setGroups([self::GROUP_CREATE]))
+            )
+        );
 
         if (!$response['success']) {
             return;
@@ -56,11 +58,16 @@ class SObjectRepository implements SObjectRepositoryInterface
      */
     public function update(AbstractSObject $object)
     {
-        $this->client->doRequest(new Update(
-            $object::getSObjectName(),
-            $object->getId(),
-            $this->serializer->toArray($object, SerializationContext::create()->setGroups([self::GROUP_UPDATE])->setSerializeNull(true))
-        ));
+        $this->client->doRequest(
+            new Update(
+                $object::getSObjectName(),
+                $object->getId(),
+                $this->serializer->toArray(
+                    $object,
+                    SerializationContext::create()->setGroups([self::GROUP_UPDATE])->setSerializeNull(true)
+                )
+            )
+        );
     }
 
     /**

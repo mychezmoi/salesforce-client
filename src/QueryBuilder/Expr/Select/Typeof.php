@@ -22,7 +22,7 @@ class Typeof extends AbstractSelect implements ExprInterface
 
     public function __construct(string $field)
     {
-        $this->field = $field;
+        $this->field       = $field;
         $this->whenClauses = [];
     }
 

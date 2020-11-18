@@ -86,22 +86,26 @@ class QueryBuilder
 
     private function addOrUpdateWhere(AbstractCompare $where, string $operator, bool $wrapPrevious)
     {
-        $this->query->setWhere($this->createCompositeCompare(
-            $where,
-            $operator,
-            $wrapPrevious,
-            $this->query->getWhere()
-        ));
+        $this->query->setWhere(
+            $this->createCompositeCompare(
+                $where,
+                $operator,
+                $wrapPrevious,
+                $this->query->getWhere()
+            )
+        );
     }
 
     private function addOrUpdateHaving(AbstractCompare $having, string $operator, bool $wrapPrevious)
     {
-        $this->query->setHaving($this->createCompositeCompare(
-            $having,
-            $operator,
-            $wrapPrevious,
-            $this->query->getHaving()
-        ));
+        $this->query->setHaving(
+            $this->createCompositeCompare(
+                $having,
+                $operator,
+                $wrapPrevious,
+                $this->query->getHaving()
+            )
+        );
     }
 
     private function createCompositeCompare(
@@ -109,7 +113,8 @@ class QueryBuilder
         string $operator,
         bool $wrapPrevious,
         AbstractCompare $currentCompare = null
-    ): AbstractCompare {
+    ): AbstractCompare
+    {
         if (null === $currentCompare) {
             return $compare;
         }

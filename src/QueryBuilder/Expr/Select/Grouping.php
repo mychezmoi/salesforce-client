@@ -12,7 +12,7 @@ class Grouping extends AbstractSelect implements ExprInterface
 
     public function __construct(string $fieldName, string $targetName)
     {
-        $this->fieldName = $fieldName;
+        $this->fieldName  = $fieldName;
         $this->targetName = $targetName;
     }
 
