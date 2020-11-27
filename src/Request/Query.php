@@ -2,12 +2,11 @@
 
 namespace Mcm\SalesforceClient\Request;
 
-use Mcm\SalesforceClient\Enum\ContentType;
 use Symfony\Component\HttpFoundation\Request;
 
 class Query implements RequestInterface
 {
-    const ENDPOINT = '/query/';
+    const ENDPOINT = 'query/';
 
     private string $queryString;
 
@@ -35,8 +34,8 @@ class Query implements RequestInterface
         return [];
     }
 
-    public function getContentType(): string
+    public function hasBody(): bool
     {
-        return ContentType::FORM;
+        return false;
     }
 }

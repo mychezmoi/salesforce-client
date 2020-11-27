@@ -2,12 +2,11 @@
 
 namespace Mcm\SalesforceClient\Request;
 
-use Mcm\SalesforceClient\Enum\ContentType;
 use Symfony\Component\HttpFoundation\Request;
 
 class Get implements RequestInterface
 {
-    const ENDPOINT = '/sobjects/%s/%s/';
+    const ENDPOINT = 'sobjects/%s/%s/';
 
     protected string $objectType;
 
@@ -27,7 +26,13 @@ class Get implements RequestInterface
      */
     public function getEndpoint(): string
     {
-        return sprintf(self::ENDPOINT, $this->objectType, $this->id);
+        $endPoint = sprintf(self::ENDPOINT, $this->objectType, $this->id);
+
+        if (!empty($this->getParams())) {
+            $endPoint .= '?'.http_build_query(['fields' => implode(',', $this->params)]);
+        }
+
+        return $endPoint;
     }
 
     /**
@@ -43,18 +48,14 @@ class Get implements RequestInterface
      */
     public function getParams(): array
     {
-        if (empty($this->params)) {
-            return [];
-        }
-
-        return ['fields' => implode(',', $this->params)];
+        return $this->params;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getContentType(): string
+    public function hasBody(): bool
     {
-        return ContentType::FORM;
+        return false;
     }
 }

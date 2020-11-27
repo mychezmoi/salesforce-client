@@ -3,10 +3,14 @@
 namespace Mcm\SalesforceClient\Model;
 
 use JMS\Serializer\Annotation as JMS;
-use Mcm\SalesforceClient\Enum\SObjectType;
 
 class Contact extends AbstractSObject
 {
+    public static function getSName() : string
+    {
+        return 'Contact';
+    }
+
     /**
      * @var string|null
      * @JMS\Type("string")
@@ -355,7 +359,7 @@ class Contact extends AbstractSObject
      */
     public static function getSObjectName(): string
     {
-        return SObjectType::CONTACT;
+        return 'Contact';
     }
 
     /**

@@ -2,12 +2,11 @@
 
 namespace Mcm\SalesforceClient\Request;
 
-use Mcm\SalesforceClient\Enum\ContentType;
 use Symfony\Component\HttpFoundation\Request;
 
 class QueryNext implements RequestInterface
 {
-    const ENDPOINT = '/query/%s';
+    const ENDPOINT = 'query/%s';
 
     private string $nextResultIdentifier;
 
@@ -31,8 +30,8 @@ class QueryNext implements RequestInterface
         return [];
     }
 
-    public function getContentType(): string
+    public function hasBody(): bool
     {
-        return ContentType::FORM;
+        return false;
     }
 }

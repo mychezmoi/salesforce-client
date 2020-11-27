@@ -4,18 +4,19 @@ namespace Mcm\SalesforceClient\Client;
 
 use Mcm\SalesforceClient\Request\RequestInterface;
 
+use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 use Symfony\Component\HttpFoundation\Response;
 
-use Mcm\SalesforceClient\Enum\ContentType;
+use Mcm\SalesforceClient\Request;
 use Mcm\SalesforceClient\Generator\TokenGeneratorInterface;
 use Mcm\SalesforceClient\Security\Token\TokenInterface;
 
 class SalesforceClient
 {
-    const PREFIX = 'services/data/';
+    const PREFIX = 'services/data';
 
     protected HttpClientInterface $client;
 
@@ -23,11 +24,50 @@ class SalesforceClient
 
     protected string $version;
 
+    protected ?LoggerInterface $logger = null;
+
     public function __construct(TokenGeneratorInterface $tokenManager, string $version)
     {
         $this->client       = HttpClient::create();
         $this->tokenManager = $tokenManager;
         $this->version      = $version;
+    }
+
+    public function setLogger(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
+    }
+
+    protected function log($level, $message)
+    {
+        if ($this->logger) {
+            $this->logger->log($level, $message);
+        }
+    }
+
+    public function create(string $objectType, array $parameters)
+    {
+        return $this->doRequest(new Request\Create($objectType, $parameters));
+    }
+
+    public function get(string $objectType, string $id, array $parameters = [])
+    {
+        return $this->doRequest(new Request\Get($objectType, $id, $parameters));
+    }
+
+    public function update(string $objectType, string $id, array $parameters)
+    {
+        return $this->doRequest(new Request\Update($objectType, $id, $parameters));
+    }
+
+    public function delete(string $objectType, string $id)
+    {
+        return $this->doRequest(new Request\Delete($objectType, $id));
+    }
+
+    public function query(string $queryString)
+    {
+        return $this->doRequest(new Request\Query($queryString));
     }
 
     public function doRequest(RequestInterface $request): array
@@ -42,36 +82,36 @@ class SalesforceClient
                 $response = $this->sendRequest($this->tokenManager->regenerateToken($token), $request);
             }
 
-            return $response->toArray();
+            // salesforce update return an empty body
+            if ($response->getContent() !== "") {
+                return $response->toArray();
+            }
 
-        } catch (\Exception $ex) {
-
-            //@todo: handle exceptions
-
-            throw $ex;
+            return [];
+        } catch (\Exception $e) {
+            $this->log('error', $e->getMessage());
+            $this->log('error', print_r($response, true));
+            throw $e;
         }
     }
 
     protected function sendRequest(TokenInterface $token, RequestInterface $request): ResponseInterface
     {
-        if ((string)$request->getContentType() === (string)ContentType::JSON) {
-            $content = ['json' => $request->getParams()];
-        }
+        $options = [
+            'headers' => [
+                'authorization' => sprintf('%s %s', $token->getTokenType(), $token->getAccessToken()),
+            ],
+        ];
 
-        if ((string)$request->getContentType() === (string)ContentType::FORM) {
-            $content = ['body' => $request->getParams()];
+        if ($request->hasBody()) {
+            //$options['headers']['Content-type'] = 'application/json';
+            $options['json'] = $request->getParams();
         }
 
         $response = $this->client->request(
             $request->getMethod(),
             $this->getUri($token, $request),
-            [
-                'headers' => [
-                    'authorization' => sprintf('%s %s', $token->getTokenType(), $token->getAccessToken()),
-                    'Content-type'  => $request->getContentType(),
-                ],
-                $content,
-            ]
+            $options
         );
 
         return $response;
@@ -80,9 +120,11 @@ class SalesforceClient
     protected function getUri(TokenInterface $token, RequestInterface $request): string
     {
         return sprintf(
-            '%s/%s',
-            rtrim($token->getInstanceUrl(), '/'),
-            sprintf('%s%s/%s', self::PREFIX, $this->version, ltrim($request->getEndpoint(), '/'))
+            '%s/%s/%s/%s',
+            $token->getInstanceUrl(),
+            self::PREFIX,
+            $this->version,
+            $request->getEndpoint()
         );
     }
 }

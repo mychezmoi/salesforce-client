@@ -10,5 +10,5 @@ interface RequestInterface
 
     public function getEndpoint(): string;
 
-    public function getContentType(): string;
+    public function hasBody(): bool;
 }

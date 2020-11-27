@@ -6,7 +6,6 @@ use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-use Mcm\SalesforceClient\Enum\ContentType;
 use Mcm\SalesforceClient\Security\Authentication\Strategy\RegenerateStrategyInterface;
 use Mcm\SalesforceClient\Security\Token\Token;
 use Mcm\SalesforceClient\Security\Token\TokenInterface;
@@ -38,12 +37,13 @@ class Authenticator implements AuthenticatorInterface
     {
         try {
             $response = $this->client->request(
-
                 Request::METHOD_POST,
                 self::TOKEN_URL,
                 [
-                    'Content-type' => ContentType::FORM,
-                    'body'         => http_build_query($credentials->getParameters()),
+                    'headers' => [
+                        'Content-type' => 'application/x-www-form-urlencoded',
+                    ],
+                    'body'    => $credentials->getParameters(),
                 ]
             )->toArray();
 

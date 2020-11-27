@@ -2,12 +2,11 @@
 
 namespace Mcm\SalesforceClient\Request;
 
-use Mcm\SalesforceClient\Enum\ContentType;
 use Symfony\Component\HttpFoundation\Request;
 
 class Delete implements RequestInterface
 {
-    const ENDPOINT = '/sobjects/%s/%s/';
+    const ENDPOINT = 'sobjects/%s/%s/';
 
     protected string $objectType;
 
@@ -43,8 +42,8 @@ class Delete implements RequestInterface
         return [];
     }
 
-    public function getContentType(): string
+    public function hasBody(): bool
     {
-        return ContentType::FORM;
+        return false;
     }
 }

@@ -36,7 +36,7 @@ abstract class AbstractSObject
      */
     protected \DateTime $systemModstamp;
 
-    abstract public static function getSObjectName(): string;
+    abstract public static function getSName(): string;
 
     public function getId(): string
     {

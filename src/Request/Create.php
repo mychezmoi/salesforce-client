@@ -2,12 +2,11 @@
 
 namespace Mcm\SalesforceClient\Request;
 
-use Mcm\SalesforceClient\Enum\ContentType;
 use Symfony\Component\HttpFoundation\Request;
 
 class Create implements RequestInterface
 {
-    const ENDPOINT = '/sobjects/%s/';
+    const ENDPOINT = 'sobjects/%s/';
 
     protected string $objectType;
 
@@ -46,8 +45,8 @@ class Create implements RequestInterface
     /**
      * {@inheritdoc}
      */
-    public function getContentType(): string
+    public function hasBody(): bool
     {
-        return ContentType::JSON;
+        return true;
     }
 }
