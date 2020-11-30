@@ -2,7 +2,7 @@
 
 namespace Mcm\SalesforceClient\QueryBuilder\Executor;
 
-use Mcm\SalesforceClient\Client\SalesforceClient;
+use Mcm\SalesforceClient\SalesforceClient;
 use Mcm\SalesforceClient\QueryBuilder\Query;
 use Mcm\SalesforceClient\QueryBuilder\Records;
 use Mcm\SalesforceClient\Request\Query as RequestQuery;

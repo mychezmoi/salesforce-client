@@ -4,8 +4,8 @@ namespace Mcm\SalesforceClient\Repository;
 
 use JMS\Serializer\ArrayTransformerInterface;
 use JMS\Serializer\SerializationContext;
-use Mcm\SalesforceClient\Client\SalesforceClient;
-use Mcm\SalesforceClient\Model\AbstractSObject;
+use Mcm\SalesforceClient\SalesforceClient;
+use Mcm\SalesforceClient\AbstractSObject;
 use Mcm\SalesforceClient\Request\Create;
 use Mcm\SalesforceClient\Request\Delete;
 use Mcm\SalesforceClient\Request\Get;

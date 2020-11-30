@@ -2,7 +2,7 @@
 
 namespace Mcm\SalesforceClient\Repository;
 
-use Mcm\SalesforceClient\Model\AbstractSObject;
+use Mcm\SalesforceClient\AbstractSObject;
 
 interface SObjectRepositoryInterface
 {

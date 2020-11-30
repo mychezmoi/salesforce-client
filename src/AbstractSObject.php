@@ -1,6 +1,6 @@
 <?php
 
-namespace Mcm\SalesforceClient\Model;
+namespace Mcm\SalesforceClient;
 
 use JMS\Serializer\Annotation\Type;
 
