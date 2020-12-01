@@ -70,6 +70,11 @@ class SalesforceClient
         return $this->doRequest(new Request\Query($queryString));
     }
 
+    public function systemLimits()
+    {
+        return $this->doRequest(new Request\System\Limits());
+    }
+
     public function doRequest(RequestInterface $request): array
     {
         $token = $this->tokenManager->getToken();
