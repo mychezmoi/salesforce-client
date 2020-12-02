@@ -2,7 +2,7 @@
 
 namespace Mcm\SalesforceClient\QueryBuilder\Executor;
 
-use Mcm\SalesforceClient\SalesforceClient;
+use Mcm\SalesforceClient\Client\SalesforceClient;
 use Mcm\SalesforceClient\QueryBuilder\Query;
 use Mcm\SalesforceClient\QueryBuilder\Records;
 use Mcm\SalesforceClient\Request\Query as RequestQuery;
@@ -22,10 +22,10 @@ class SalesforceClientQueryExecutor implements QueryExecutorInterface
      */
     public function getRecords(Query $query): Records
     {
-        $request = new RequestQuery($query->parse());
-        $result  = $this->client->doRequest($request);
+        $request            = new RequestQuery($query->parse());
+        $response = $this->client->doRequest($request);
 
-        return new Records($result);
+        return new Records($response->getContent());
     }
 
     /**
@@ -39,9 +39,9 @@ class SalesforceClientQueryExecutor implements QueryExecutorInterface
             return null;
         }
 
-        $request    = new QueryNext($records->getNextIdentifier());
-        $nextResult = $this->client->doRequest($request);
+        $request            = new QueryNext($records->getNextIdentifier());
+        $response = $this->client->doRequest($request);
 
-        return new Records($nextResult);
+        return new Records($response->getContent());
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Mcm\SalesforceClient;
+namespace Mcm\SalesforceClient\Client;
 
 use Mcm\SalesforceClient\Request\RequestInterface;
 
@@ -75,7 +75,19 @@ class SalesforceClient
         return $this->doRequest(new Request\System\Limits());
     }
 
-    public function doRequest(RequestInterface $request): array
+    /**
+     * @param RequestInterface $request
+     *
+     * @return SalesforceResponse
+     *
+     * @throws SalesforceResponseException
+     * @throws \Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
+     */
+    public function doRequest(RequestInterface $request): SalesforceResponse
     {
         $token = $this->tokenManager->getToken();
 
@@ -87,15 +99,23 @@ class SalesforceClient
                 $response = $this->sendRequest($this->tokenManager->regenerateToken($token), $request);
             }
 
-            // salesforce update return an empty body
-            if ($response->getContent() !== "") {
-                return $response->toArray();
+            $salesforceResponse = new SalesforceResponse;
+            $salesforceResponse->setHttpStatus($response->getStatusCode());
+
+            if ($salesforceResponse->hasCriticalError()) {
+                throw new SalesforceResponseException($salesforceResponse->getHttpStatusMessage());
             }
 
-            return [];
+            // by pass http client exceptions if SalesforceResponse has no critical error
+            if ($response->getContent(false) !== "") {
+                $salesforceResponse->setContent($response->toArray(false));
+            }
+
+            return $salesforceResponse;
+
         } catch (\Exception $e) {
             $this->log('error', $e->getMessage());
-            $this->log('error', print_r($response, true));
+            $this->log('debug', 'http response : '.print_r($response, true));
             throw $e;
         }
     }

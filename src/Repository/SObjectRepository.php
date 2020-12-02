@@ -4,7 +4,7 @@ namespace Mcm\SalesforceClient\Repository;
 
 use JMS\Serializer\ArrayTransformerInterface;
 use JMS\Serializer\SerializationContext;
-use Mcm\SalesforceClient\SalesforceClient;
+use Mcm\SalesforceClient\Client\SalesforceClient;
 use Mcm\SalesforceClient\AbstractSObject;
 use Mcm\SalesforceClient\Request\Create;
 use Mcm\SalesforceClient\Request\Delete;
@@ -36,7 +36,7 @@ class SObjectRepository implements SObjectRepositoryInterface
                 $object::getSObjectName(),
                 $this->serializer->toArray($object, SerializationContext::create()->setGroups([self::GROUP_CREATE]))
             )
-        );
+        )->getContent();
 
         if (!$response['success']) {
             return;
@@ -90,6 +90,6 @@ class SObjectRepository implements SObjectRepositoryInterface
             throw new \RuntimeException(sprintf('%s should extend %s', $class, AbstractSObject::class));
         }
 
-        return $this->client->doRequest(new Get($class::getSObjectName(), $id, $fields));
+        return $this->client->doRequest(new Get($class::getSObjectName(), $id, $fields))->getContent();
     }
 }
