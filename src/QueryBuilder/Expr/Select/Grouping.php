@@ -16,9 +16,7 @@ class Grouping extends AbstractSelect implements ExprInterface
         $this->targetName = $targetName;
     }
 
-    /**
-     * {@inheritdoc}
-     */
+
     protected function getSelectPart(): string
     {
         return sprintf('GROUPING(%s) %s', $this->fieldName, $this->targetName);

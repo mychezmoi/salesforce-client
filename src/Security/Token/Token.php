@@ -3,7 +3,7 @@
 namespace Mcm\SalesforceClient\Security\Token;
 
 /**
- * Basic implementation of TokenInterace.
+ * Basic implementation of TokenInterface.
  */
 class Token implements TokenInterface
 {
@@ -29,41 +29,31 @@ class Token implements TokenInterface
         $this->instanceUrl  = $instanceUrl;
     }
 
-    /**
-     * {@inheritdoc}
-     */
+
     public function getTokenType(): string
     {
         return $this->tokenType;
     }
 
-    /**
-     * {@inheritdoc}
-     */
+
     public function getAccessToken(): string
     {
         return $this->accessToken;
     }
 
-    /**
-     * {@inheritdoc}
-     */
+
     public function getRefreshToken(): string
     {
         return $this->refreshToken;
     }
 
-    /**
-     * {@inheritdoc}
-     */
+
     public function getInstanceUrl(): string
     {
         return $this->instanceUrl;
     }
 
-    /**
-     * {@inheritdoc}
-     */
+
     public function serialize(): string
     {
         return serialize(
@@ -76,9 +66,7 @@ class Token implements TokenInterface
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
+
     public function unserialize($serialized)
     {
         [

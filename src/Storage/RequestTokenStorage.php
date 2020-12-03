@@ -22,17 +22,13 @@ class RequestTokenStorage implements TokenStorageInterface
         return $this->token;
     }
 
-    /**
-     * {@inheritdoc}
-     */
+
     public function has(): bool
     {
         return $this->token instanceof TokenInterface;
     }
 
-    /**
-     * {@inheritdoc}
-     */
+
     public function save(TokenInterface $token)
     {
         $this->token = $token;

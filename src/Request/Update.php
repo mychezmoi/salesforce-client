@@ -21,33 +21,25 @@ class Update implements RequestInterface
         $this->params     = $params;
     }
 
-    /**
-     * {@inheritdoc}
-     */
+
     public function getEndpoint(): string
     {
         return sprintf(self::ENDPOINT, $this->objectType, $this->id);
     }
 
-    /**
-     * {@inheritdoc}
-     */
+
     public function getMethod(): string
     {
         return Request::METHOD_PATCH;
     }
 
-    /**
-     * {@inheritdoc}
-     */
+
     public function getParams(): array
     {
         return $this->params;
     }
 
-    /**
-     * {@inheritdoc}
-     */
+
     public function hasBody(): bool
     {
         return true;

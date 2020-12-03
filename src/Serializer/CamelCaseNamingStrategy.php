@@ -12,9 +12,7 @@ use JMS\Serializer\Naming\PropertyNamingStrategyInterface;
  */
 class CamelCaseNamingStrategy implements PropertyNamingStrategyInterface
 {
-    /**
-     * {@inheritdoc}
-     */
+
     public function translateName(PropertyMetadata $property): string
     {
         return ucfirst($property->name);

@@ -3,9 +3,9 @@
 namespace Mcm\SalesforceClient\QueryBuilder\Expr\Compare;
 
 use Mcm\SalesforceClient\QueryBuilder\Expr\ExprInterface;
-use Mcm\SalesforceClient\QueryBuilder\Visitor\VisiteeInterface;
+use Mcm\SalesforceClient\QueryBuilder\Visitor\VisitedInterface;
 
-class In extends AbstractMultiCompare implements ExprInterface, VisiteeInterface
+class In extends AbstractMultiCompare implements ExprInterface, VisitedInterface
 {
     public function getComparator(): string
     {

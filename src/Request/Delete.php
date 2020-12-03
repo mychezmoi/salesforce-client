@@ -18,25 +18,19 @@ class Delete implements RequestInterface
         $this->id         = $id;
     }
 
-    /**
-     * {@inheritdoc}
-     */
+
     public function getMethod(): string
     {
         return Request::METHOD_DELETE;
     }
 
-    /**
-     * {@inheritdoc}
-     */
+
     public function getEndpoint(): string
     {
         return sprintf(self::ENDPOINT, $this->objectType, $this->id);
     }
 
-    /**
-     * {@inheritdoc}
-     */
+
     public function getParams(): array
     {
         return [];

@@ -30,9 +30,7 @@ class Authenticator implements AuthenticatorInterface
         $this->regenerateStrategies = $regenerateStrategies;
     }
 
-    /**
-     * {@inheritdoc}
-     */
+
     public function authenticate(Credentials $credentials): TokenInterface
     {
         try {
@@ -65,9 +63,7 @@ class Authenticator implements AuthenticatorInterface
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
+
     public function regenerate(Credentials $credentials, TokenInterface $token): TokenInterface
     {
         foreach ($this->regenerateStrategies as $strategy) {

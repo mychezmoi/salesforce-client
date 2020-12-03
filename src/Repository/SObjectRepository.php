@@ -33,7 +33,7 @@ class SObjectRepository implements SObjectRepositoryInterface
     {
         $response = $this->client->doRequest(
             new Create(
-                $object::getSObjectName(),
+                $object::getSName(),
                 $this->serializer->toArray($object, SerializationContext::create()->setGroups([self::GROUP_CREATE]))
             )
         )->getContent();
@@ -50,7 +50,7 @@ class SObjectRepository implements SObjectRepositoryInterface
      */
     public function delete(AbstractSObject $object)
     {
-        $this->client->doRequest(new Delete($object::getSObjectName(), $object->getId()));
+        $this->client->doRequest(new Delete($object::getSName(), $object->getId()));
     }
 
     /**
@@ -60,7 +60,7 @@ class SObjectRepository implements SObjectRepositoryInterface
     {
         $this->client->doRequest(
             new Update(
-                $object::getSObjectName(),
+                $object::getSName(),
                 $object->getId(),
                 $this->serializer->toArray(
                     $object,
@@ -70,9 +70,7 @@ class SObjectRepository implements SObjectRepositoryInterface
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
+
     public function find(string $class, string $id): AbstractSObject
     {
         return $this->serializer->fromArray(
@@ -90,6 +88,6 @@ class SObjectRepository implements SObjectRepositoryInterface
             throw new \RuntimeException(sprintf('%s should extend %s', $class, AbstractSObject::class));
         }
 
-        return $this->client->doRequest(new Get($class::getSObjectName(), $id, $fields))->getContent();
+        return $this->client->doRequest(new Get($class::getSName(), $id, $fields))->getContent();
     }
 }

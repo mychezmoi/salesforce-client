@@ -13,9 +13,7 @@ class Cube extends AbstractGroupBy implements ExprInterface
         $this->fields = $fields;
     }
 
-    /**
-     * {@inheritdoc}
-     */
+
     protected function getGroupByPart(): string
     {
         return sprintf('CUBE(%s)', implode(', ', $this->fields));

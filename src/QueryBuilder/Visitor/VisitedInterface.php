@@ -2,7 +2,7 @@
 
 namespace Mcm\SalesforceClient\QueryBuilder\Visitor;
 
-interface VisiteeInterface
+interface VisitedInterface
 {
     public function accept(VisitorInterface $visitor);
 

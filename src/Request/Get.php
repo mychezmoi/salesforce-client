@@ -21,9 +21,7 @@ class Get implements RequestInterface
         $this->params     = $params;
     }
 
-    /**
-     * {@inheritdoc}
-     */
+
     public function getEndpoint(): string
     {
         $endPoint = sprintf(self::ENDPOINT, $this->objectType, $this->id);
@@ -35,25 +33,19 @@ class Get implements RequestInterface
         return $endPoint;
     }
 
-    /**
-     * {@inheritdoc}
-     */
+
     public function getMethod(): string
     {
         return Request::METHOD_GET;
     }
 
-    /**
-     * {@inheritdoc}
-     */
+
     public function getParams(): array
     {
         return $this->params;
     }
 
-    /**
-     * {@inheritdoc}
-     */
+
     public function hasBody(): bool
     {
         return false;

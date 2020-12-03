@@ -92,6 +92,7 @@ class SalesforceClient
         $token = $this->tokenManager->getToken();
 
         try {
+            $response = null;
             $response = $this->sendRequest($token, $request);
 
             // Token is expired or invalid - get new and retry
@@ -106,7 +107,7 @@ class SalesforceClient
                 throw new SalesforceResponseException($salesforceResponse->getHttpStatusMessage());
             }
 
-            // by pass http client exceptions if SalesforceResponse has no critical error
+            // bypass http client exceptions if SalesforceResponse has no critical error
             if ($response->getContent(false) !== "") {
                 $salesforceResponse->setContent($response->toArray(false));
             }
@@ -129,17 +130,14 @@ class SalesforceClient
         ];
 
         if ($request->hasBody()) {
-            //$options['headers']['Content-type'] = 'application/json';
             $options['json'] = $request->getParams();
         }
 
-        $response = $this->client->request(
+        return $this->client->request(
             $request->getMethod(),
             $this->getUri($token, $request),
             $options
         );
-
-        return $response;
     }
 
     protected function getUri(TokenInterface $token, RequestInterface $request): string

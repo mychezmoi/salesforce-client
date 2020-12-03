@@ -23,25 +23,19 @@ class OrderBy extends AbstractOrderBy implements ExprInterface
         $this->strategy = null === $strategy ? Strategy::NULLS_FIRST : $strategy;
     }
 
-    /**
-     * {@inheritdoc}
-     */
+
     protected function getFields(): array
     {
         return $this->fields;
     }
 
-    /**
-     * {@inheritdoc}
-     */
+
     protected function getOrder(): Order
     {
         return $this->order;
     }
 
-    /**
-     * {@inheritdoc}
-     */
+
     protected function getStrategy(): Strategy
     {
         return $this->strategy;

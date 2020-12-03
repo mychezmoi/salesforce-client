@@ -9,7 +9,7 @@ use Mcm\SalesforceClient\QueryBuilder\Expr\GroupBy\AbstractGroupBy;
 use Mcm\SalesforceClient\QueryBuilder\Expr\OrderBy\AbstractOrderBy;
 use Mcm\SalesforceClient\QueryBuilder\Expr\Select\AbstractSelect;
 use Mcm\SalesforceClient\QueryBuilder\Visitor\Parameters\ParametersReplacingVisitor;
-use Mcm\SalesforceClient\QueryBuilder\Visitor\VisiteeInterface;
+use Mcm\SalesforceClient\QueryBuilder\Visitor\VisitedInterface;
 use Mcm\SalesforceClient\QueryBuilder\Visitor\VisitorInterface;
 
 class Query
@@ -17,50 +17,29 @@ class Query
     /**
      * @var AbstractSelect[]
      */
-    private $selects = [];
+    private array $selects = [];
 
-    /**
-     * @var AbstractFrom|null
-     */
-    private $from;
+    private ?AbstractFrom $from;
 
-    /**
-     * @var AbstractCompare|null
-     */
-    private $where;
+    private ?AbstractCompare $where;
 
-    /**
-     * @var AbstractGroupBy|null
-     */
-    private $groupBy;
+    private ?AbstractGroupBy $groupBy;
 
-    /**
-     * @var AbstractCompare|null
-     */
-    private $having;
+    private ?AbstractCompare $having;
 
-    /**
-     * @var AbstractOrderBy|null
-     */
-    private $orderBy;
+    private ?AbstractOrderBy $orderBy;
 
-    /**
-     * @var int|null
-     */
-    private $limit;
+    private ?int $limit;
 
-    /**
-     * @var int|null
-     */
-    private $offset;
+    private ?int $offset;
 
     /**
      * @var VisitorInterface[]
      */
-    private $visitors;
+    private array $visitors;
 
     /**
-     * @param VisitorInterface[] $visitors
+     * @param array VisitorInterface[] $visitors
      */
     public function __construct(array $visitors = [])
     {
@@ -153,7 +132,7 @@ class Query
     {
         foreach ($this->visitors as $visitor) {
             foreach ($this->getQueryParts() as $queryPart) {
-                if ($queryPart instanceof VisiteeInterface) {
+                if ($queryPart instanceof VisitedInterface) {
                     $queryPart->accept($visitor);
                 }
             }

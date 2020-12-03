@@ -40,9 +40,7 @@ class Typeof extends AbstractSelect implements ExprInterface
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
+
     protected function getSelectPart(): string
     {
         $result = sprintf('TYPEOF %s%s', $this->field, $this->getWhen());

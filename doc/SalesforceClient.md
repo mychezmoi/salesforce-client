@@ -12,7 +12,7 @@ Extend the default client to add your credentials, you can change the default ap
 
 namespace MyApp\Service; // change to your app name
 
-use Mcm\SalesforceClient\SalesforceClient as McmSalesforceClient;
+use Mcm\SalesforceClient\Client\SalesforceClient as McmSalesforceClient;
 use Mcm\SalesforceClient\Generator\TokenGenerator;
 use Mcm\SalesforceClient\Security\Authentication\Authenticator;
 use Mcm\SalesforceClient\Security\Authentication\Credentials;
@@ -123,7 +123,7 @@ class MyAppClass
             ['LastName' => 'New Contact created with SalesforceClient']
         );
 
-        $contactId = $response['id'];                                     
+        $contactId = $response->getContent()['id'];                                     
 
         // Get whole object
         $response  = $salesforceClient->get(Contact::getSName(), $contactId);        

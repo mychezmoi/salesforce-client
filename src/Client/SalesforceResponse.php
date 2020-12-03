@@ -34,7 +34,7 @@ class SalesforceResponse
                 $this->httpStatusMessage = 'The request content has not changed since a specified date and time.The date and time is provided in a if-Modified - Since header.See Get Object Metadata Changes for an example.';
                 break;
             case Response::HTTP_BAD_REQUEST:
-                $this->httpStatusMessage = 'The request couldn’t be understood, usually because the JSON or XML body contains an error.';
+                $this->httpStatusMessage = 'The request could not be understood, usually because the JSON or XML body contains an error.';
                 break;
             case Response::HTTP_UNAUTHORIZED:
                 $this->httpStatusMessage = 'The session ID or OAuth token used has expired or is invalid.The response body contains the message and errorCode.';
@@ -45,7 +45,7 @@ class SalesforceResponse
                 $this->httpCriticalCode  = true;
                 break;
             case Response::HTTP_NOT_FOUND:
-                $this->httpStatusMessage = 'The requested resource couldn’t be found.Check the URI for errors, and verify that there are no sharing issues.';
+                $this->httpStatusMessage = 'The requested resource could not be found.Check the URI for errors, and verify that there are no sharing issues.';
                 break;
             case Response::HTTP_METHOD_NOT_ALLOWED:
                 $this->httpStatusMessage = 'The method specified in the Request - Line isn’t allowed for the resource specified in the URI.';
@@ -68,7 +68,7 @@ class SalesforceResponse
                 $this->httpCriticalCode  = true;
                 break;
             case Response::HTTP_INTERNAL_SERVER_ERROR:
-                $this->httpStatusMessage = 'An error has occurred within Lightning Platform, so the request couldn’t be completed.Contact Salesforce Customer Support.';
+                $this->httpStatusMessage = 'An error has occurred within Lightning Platform, so the request could not be completed.Contact Salesforce Customer Support.';
                 $this->httpCriticalCode  = true;
                 break;
             default:
@@ -106,7 +106,7 @@ class SalesforceResponse
 
     public function hasError(): bool
     {
-        return isset($this->content[0]) && isset($this->content[0]['errorCode']) === true;;
+        return isset($this->content[0]) && isset($this->content[0]['errorCode']) === true;
     }
 
     public function getErrors(): array

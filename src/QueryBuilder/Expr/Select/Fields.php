@@ -9,12 +9,12 @@ class Fields extends AbstractSelect implements ExprInterface
     /**
      * @var string[]
      */
-    private array $fields = [];
+    private array $fields;
 
     /**
      * @param string[] $fields
      */
-    public function __construct(array $fields)
+    public function __construct(array $fields = [])
     {
         $this->fields = $fields;
     }

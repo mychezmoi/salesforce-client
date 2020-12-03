@@ -22,9 +22,7 @@ class ApcuTokenStorage implements TokenStorageInterface
         return unserialize(apcu_fetch(self::TOKEN_NAME, $success));
     }
 
-    /**
-     * {@inheritdoc}
-     */
+
     public function has(): bool
     {
         apcu_fetch(self::TOKEN_NAME, $success);
@@ -32,9 +30,7 @@ class ApcuTokenStorage implements TokenStorageInterface
         return $success;
     }
 
-    /**
-     * {@inheritdoc}
-     */
+
     public function save(TokenInterface $token)
     {
         apcu_store(self::TOKEN_NAME, serialize($token));

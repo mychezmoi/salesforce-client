@@ -19,9 +19,7 @@ class MultipleGrouping extends AbstractSelect implements ExprInterface
         $this->groupings = $groupings;
     }
 
-    /**
-     * {@inheritdoc}
-     */
+
     protected function getSelectPart(): string
     {
         $result = [];

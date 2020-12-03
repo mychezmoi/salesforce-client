@@ -17,9 +17,7 @@ class WhenClause implements ExprInterface
         $this->fields = $fields;
     }
 
-    /**
-     * {@inheritdoc}
-     */
+
     public function asSOQL(): string
     {
         return sprintf(' WHEN %s THEN %s', $this->type, $this->fields->asSOQL());

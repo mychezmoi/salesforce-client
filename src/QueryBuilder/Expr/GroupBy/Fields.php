@@ -13,9 +13,7 @@ class Fields extends AbstractGroupBy implements ExprInterface
         $this->fields = $fields;
     }
 
-    /**
-     * {@inheritdoc}
-     */
+
     protected function getGroupByPart(): string
     {
         return implode(', ', $this->fields);

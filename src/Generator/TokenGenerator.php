@@ -26,9 +26,7 @@ class TokenGenerator implements TokenGeneratorInterface
         $this->tokenStorage  = $tokenStorage;
     }
 
-    /**
-     * {@inheritdoc}
-     */
+
     public function getToken(): TokenInterface
     {
         if ($this->tokenStorage->has()) {
@@ -41,9 +39,7 @@ class TokenGenerator implements TokenGeneratorInterface
         return $token;
     }
 
-    /**
-     * {@inheritdoc}
-     */
+
     public function regenerateToken(TokenInterface $token): TokenInterface
     {
         $newToken = $this->authenticator->regenerate($this->credentials, $token);

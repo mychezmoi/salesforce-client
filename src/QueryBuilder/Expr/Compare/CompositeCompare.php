@@ -3,10 +3,10 @@
 namespace Mcm\SalesforceClient\QueryBuilder\Expr\Compare;
 
 use Mcm\SalesforceClient\QueryBuilder\Expr\ExprInterface;
-use Mcm\SalesforceClient\QueryBuilder\Visitor\VisiteeInterface;
+use Mcm\SalesforceClient\QueryBuilder\Visitor\VisitedInterface;
 use Mcm\SalesforceClient\QueryBuilder\Visitor\VisitorInterface;
 
-class CompositeCompare extends AbstractCompare implements ExprInterface, VisiteeInterface
+class CompositeCompare extends AbstractCompare implements ExprInterface, VisitedInterface
 {
     private AbstractCompare $leftExpr;
 
@@ -29,17 +29,13 @@ class CompositeCompare extends AbstractCompare implements ExprInterface, Visitee
         $this->wrapPrevious = $wrapPrevious;
     }
 
-    /**
-     * {@inheritdoc}
-     */
+
     public function getComparator(): string
     {
         return $this->operator;
     }
 
-    /**
-     * {@inheritdoc}
-     */
+
     public function getLeft(): string
     {
         if ($this->wrapPrevious && $this->leftExpr instanceof self) {
@@ -49,9 +45,7 @@ class CompositeCompare extends AbstractCompare implements ExprInterface, Visitee
         return $this->leftExpr->asSOQL();
     }
 
-    /**
-     * {@inheritdoc}
-     */
+
     public function getRight(): string
     {
         return $this->rightExpr->asSOQL();
@@ -59,11 +53,11 @@ class CompositeCompare extends AbstractCompare implements ExprInterface, Visitee
 
     public function accept(VisitorInterface $visitor)
     {
-        if ($this->leftExpr instanceof VisiteeInterface) {
+        if ($this->leftExpr instanceof VisitedInterface) {
             $this->leftExpr->accept($visitor);
         }
 
-        if ($this->rightExpr instanceof VisiteeInterface) {
+        if ($this->rightExpr instanceof VisitedInterface) {
             $this->rightExpr->accept($visitor);
         }
     }

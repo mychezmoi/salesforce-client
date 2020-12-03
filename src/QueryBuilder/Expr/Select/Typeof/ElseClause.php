@@ -14,9 +14,7 @@ class ElseClause implements ExprInterface
         $this->fields = $fields;
     }
 
-    /**
-     * {@inheritdoc}
-     */
+
     public function asSOQL(): string
     {
         return sprintf(' ELSE %s', $this->fields->asSOQL());
