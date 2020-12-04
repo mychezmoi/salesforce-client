@@ -2,45 +2,37 @@
 
 namespace Mcm\SalesforceClient;
 
-use JMS\Serializer\Annotation\Type;
-
 abstract class AbstractSObject
 {
-    /**
-     * @Type("string")
-     */
     protected string $id;
 
-    /**
-     * @Type("string")
-     */
     protected string $createdById;
 
-    /**
-     * @Type("DateTime<'Y-m-d\TH:i:s.\0\0\0O'>")
-     */
     protected \DateTime $createdDate;
 
-    /**
-     * @Type("string")
-     */
     protected string $lastModifiedById;
 
-    /**
-     * @Type("DateTime<'Y-m-d\TH:i:s.\0\0\0O'>")
-     */
     protected \DateTime $lastModifiedDate;
 
-    /**
-     * @Type("DateTime<'Y-m-d\TH:i:s.\0\0\0O'>")
-     */
     protected \DateTime $systemModstamp;
 
     abstract public static function getSName(): string;
 
+    public static function getSIdField()
+    {
+        return 'Id';
+    }
+
     public function getId(): string
     {
         return $this->id;
+    }
+
+    public function setId(string $id): self
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     public function getCreatedById(): string
@@ -66,12 +58,5 @@ abstract class AbstractSObject
     public function getSystemModstamp(): \DateTime
     {
         return $this->systemModstamp;
-    }
-
-    public function setId(string $id): self
-    {
-        $this->id = $id;
-
-        return $this;
     }
 }

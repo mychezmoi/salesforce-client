@@ -55,9 +55,7 @@ Example with Contact
 ```php
 namespace MyApp\Model; // change to your app name
 
-use Mcm\SalesforceClient\Model\AbstractSObject;
-
-use JMS\Serializer\Annotation as JMS; // required if you want to use SObjectRepository (doctrine-like)
+use Mcm\SalesforceClient\AbstractSObject;
 
 class Contact extends AbstractSObject
 {
