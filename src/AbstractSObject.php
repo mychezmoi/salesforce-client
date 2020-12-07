@@ -4,7 +4,9 @@ namespace Mcm\SalesforceClient;
 
 abstract class AbstractSObject
 {
-    protected string $id;
+    protected string $sId;
+
+    protected ?array $content = [];
 
     protected string $createdById;
 
@@ -23,16 +25,33 @@ abstract class AbstractSObject
         return 'Id';
     }
 
-    public function getId(): string
+    public function getSId(): string
     {
-        return $this->id;
+        return $this->sId;
     }
 
-    public function setId(string $id): self
+    public function setSId(string $sId): self
     {
-        $this->id = $id;
+        $this->sId = $sId;
 
         return $this;
+    }
+
+    public function setContent(array $content)
+    {
+        $this->content = $content;
+
+        return $this;
+    }
+
+    public function getContent(): array
+    {
+        return $this->content;
+    }
+
+    public function get($field)
+    {
+        return isset($this->content[$field]) ? $this->content[$field] : null;
     }
 
     public function getCreatedById(): string
