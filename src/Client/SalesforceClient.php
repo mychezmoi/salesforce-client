@@ -70,6 +70,11 @@ class SalesforceClient
         return $this->doRequest(new Request\Query($queryString));
     }
 
+    public function queryNext(string $queryString)
+    {
+        return $this->doRequest(new Request\QueryNext($queryString));
+    }
+
     public function systemLimits()
     {
         return $this->doRequest(new Request\System\Limits());

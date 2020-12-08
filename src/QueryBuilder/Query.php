@@ -19,19 +19,19 @@ class Query
      */
     private array $selects = [];
 
-    private ?AbstractFrom $from;
+    private ?AbstractFrom $from = null;
 
-    private ?AbstractCompare $where;
+    private ?AbstractCompare $where = null;
 
-    private ?AbstractGroupBy $groupBy;
+    private ?AbstractGroupBy $groupBy = null;
 
-    private ?AbstractCompare $having;
+    private ?AbstractCompare $having = null;
 
-    private ?AbstractOrderBy $orderBy;
+    private ?AbstractOrderBy $orderBy = null;
 
-    private ?int $limit;
+    private ?int $limit = null;
 
-    private ?int $offset;
+    private ?int $offset = null;
 
     /**
      * @var VisitorInterface[]

@@ -1,6 +1,6 @@
 <?php
 
-namespace Mcm\SalesforceClient\QueryBuilder\Executor;
+namespace Mcm\SalesforceClient\QueryBuilder;
 
 use Mcm\SalesforceClient\Client\SalesforceClient;
 use Mcm\SalesforceClient\QueryBuilder\Query;
@@ -8,9 +8,11 @@ use Mcm\SalesforceClient\QueryBuilder\Records;
 use Mcm\SalesforceClient\Request\Query as RequestQuery;
 use Mcm\SalesforceClient\Request\QueryNext;
 
-class SalesforceClientQueryExecutor implements QueryExecutorInterface
+class QueryExecutor
 {
     private SalesforceClient $client;
+
+    private ?Records $records;
 
     public function __construct(SalesforceClient $client)
     {
@@ -22,10 +24,22 @@ class SalesforceClientQueryExecutor implements QueryExecutorInterface
      */
     public function getRecords(Query $query): Records
     {
-        $request            = new RequestQuery($query->parse());
-        $response = $this->client->doRequest($request);
+        if ($this->records) {
+            return $this->records;
+        }
 
-        return new Records($response->getContent());
+        $response = $this->client->query($query->parse());
+
+        $this->records = new Records($response->getContent());
+
+        return $this->records;
+    }
+
+    public function getFirstRecord (Query $query)
+    {
+        $records = $this->getRecords($query);
+
+        return isset($records[0]) ? $records[0] : null;
     }
 
     /**
@@ -39,9 +53,10 @@ class SalesforceClientQueryExecutor implements QueryExecutorInterface
             return null;
         }
 
-        $request            = new QueryNext($records->getNextIdentifier());
-        $response = $this->client->doRequest($request);
+        $response = $this->client->queryNext($records->getNextIdentifier());
 
-        return new Records($response->getContent());
+        $this->records = new Records($response->getContent());
+
+        return $this->records;
     }
 }

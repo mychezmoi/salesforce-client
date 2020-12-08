@@ -19,6 +19,11 @@ class Records implements \IteratorAggregate, \Countable
         return new \ArrayIterator($this->raw['records']);
     }
 
+    public function getFirst()
+    {
+        return isset($this->raw['records']) && isset($this->raw['records'][0]) ? $this->raw['records'][0] : null;
+    }
+
     public function count(): int
     {
         return count($this->raw['records']);
