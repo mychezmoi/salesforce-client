@@ -1,10 +1,10 @@
 SalesforceClient
 ===
-A basic client for managing objects in Salesforce. 
+A basic client for managing objects in Salesforce.
 
 ### Setup
 
-Extend the default client to add your credentials, you can change the default apcu token storage 
+Extend the default client to add your credentials, you can change the default apcu token storage
 > For more information on security tokens see “Reset Your Security Token” in the [online help](https://help.salesforce.com/articleView?id=user_security_token.htm&type=5).
 
 ```php
@@ -49,9 +49,11 @@ class SalesforceClient extends McmSalesforceClient
 ```
 
 ### Define your model
+
 For each salesforce object required you must define a php object
 
-Example with Contact 
+Example with Contact
+
 ```php
 namespace MyApp\Model; // change to your app name
 
@@ -69,6 +71,7 @@ class Contact extends AbstractSObject
 ## symfony 4+ configuration
 
 .env.local
+
 ```ini
 ###> SALESFORCE ###
 SALESFORCE_VERSION=v50.0
@@ -81,6 +84,7 @@ SALESFORCE_TOKEN=mytoken
 ```
 
 config/services.yaml
+
 ```yaml
 parameters:
     salesforce:

@@ -20,7 +20,7 @@ class Query implements RequestInterface
         return sprintf(
             '%s?%s',
             self::ENDPOINT,
-            http_build_query(['q' => $this->queryString], null, '&')
+            http_build_query(['q' => $this->queryString], null)
         );
     }
 

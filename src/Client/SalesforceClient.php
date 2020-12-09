@@ -45,37 +45,37 @@ class SalesforceClient
         }
     }
 
-    public function create(string $objectType, array $parameters)
+    public function create(string $objectType, array $parameters): SalesforceResponse
     {
         return $this->doRequest(new Request\Create($objectType, $parameters));
     }
 
-    public function get(string $objectType, string $id, array $parameters = [])
+    public function get(string $objectType, string $id, array $parameters = []): SalesforceResponse
     {
         return $this->doRequest(new Request\Get($objectType, $id, $parameters));
     }
 
-    public function update(string $objectType, string $id, array $parameters)
+    public function update(string $objectType, string $id, array $parameters): SalesforceResponse
     {
         return $this->doRequest(new Request\Update($objectType, $id, $parameters));
     }
 
-    public function delete(string $objectType, string $id)
+    public function delete(string $objectType, string $id): SalesforceResponse
     {
         return $this->doRequest(new Request\Delete($objectType, $id));
     }
 
-    public function query(string $queryString)
+    public function query(string $queryString): SalesforceResponse
     {
         return $this->doRequest(new Request\Query($queryString));
     }
 
-    public function queryNext(string $queryString)
+    public function queryNext(string $queryString): SalesforceResponse
     {
         return $this->doRequest(new Request\QueryNext($queryString));
     }
 
-    public function systemLimits()
+    public function systemLimits(): SalesforceResponse
     {
         return $this->doRequest(new Request\System\Limits());
     }

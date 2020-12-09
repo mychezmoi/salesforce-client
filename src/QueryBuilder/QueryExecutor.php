@@ -31,7 +31,7 @@ class QueryExecutor
         return $this->records;
     }
 
-    public function getFirstRecord (Query $query)
+    public function getFirstRecord(Query $query)
     {
         return $this->getRecords($query)->getFirst();
     }

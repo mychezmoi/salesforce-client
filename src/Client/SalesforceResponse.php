@@ -16,9 +16,9 @@ class SalesforceResponse implements \JsonSerializable
     public function jsonSerialize()
     {
         return [
-            'HTTP Status Code' => $this->httpStatusCode,
+            'HTTP Status Code'    => $this->httpStatusCode,
             'HTTP Status Message' => $this->httpStatusMessage,
-            'content' => $this->content
+            'content'             => $this->content,
         ];
     }
 

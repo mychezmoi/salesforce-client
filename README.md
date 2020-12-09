@@ -5,7 +5,8 @@ Salesforce Client
 This bundle is freely adapated from github.com/boldare/salesforce-client
 
 Objectives
-- KISS and STABLE  
+
+- KISS and STABLE
 - use only required dependencies
 - use only long term dependencies
 - be php latest friendly (7.4 for now)
@@ -13,4 +14,5 @@ Objectives
 
 Table of contents
 ==
+
 * [Basic client](doc/SalesforceClient.md)
