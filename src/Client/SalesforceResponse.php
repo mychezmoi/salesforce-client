@@ -4,7 +4,7 @@ namespace Mcm\SalesforceClient\Client;
 
 use Symfony\Component\HttpFoundation\Response;
 
-class SalesforceResponse
+class SalesforceResponse implements \JsonSerializable
 {
     private ?int $httpStatusCode;
     private ?string $httpStatusMessage;
@@ -12,6 +12,15 @@ class SalesforceResponse
     private bool $httpCriticalCode = false;
 
     private ?array $content = [];
+
+    public function jsonSerialize()
+    {
+        return [
+            'HTTP Status Code' => $this->httpStatusCode,
+            'HTTP Status Message' => $this->httpStatusMessage,
+            'content' => $this->content
+        ];
+    }
 
     public function setHttpStatus(int $httpStatusCode)
     {

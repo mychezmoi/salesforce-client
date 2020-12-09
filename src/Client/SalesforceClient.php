@@ -117,11 +117,13 @@ class SalesforceClient
                 $salesforceResponse->setContent($response->toArray(false));
             }
 
+            $this->log('debug', 'SalesforceResponse : '.json_encode($salesforceResponse));
+
             return $salesforceResponse;
 
         } catch (\Exception $e) {
             $this->log('error', $e->getMessage());
-            $this->log('debug', 'http response : '.print_r($response, true));
+            $this->log('debug', 'HTTP response : '.print_r($response, true));
             throw $e;
         }
     }
