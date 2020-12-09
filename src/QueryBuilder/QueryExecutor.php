@@ -3,16 +3,12 @@
 namespace Mcm\SalesforceClient\QueryBuilder;
 
 use Mcm\SalesforceClient\Client\SalesforceClient;
-use Mcm\SalesforceClient\QueryBuilder\Query;
-use Mcm\SalesforceClient\QueryBuilder\Records;
-use Mcm\SalesforceClient\Request\Query as RequestQuery;
-use Mcm\SalesforceClient\Request\QueryNext;
 
 class QueryExecutor
 {
     private SalesforceClient $client;
 
-    private ?Records $records;
+    private ?Records $records = null;
 
     public function __construct(SalesforceClient $client)
     {
@@ -37,9 +33,7 @@ class QueryExecutor
 
     public function getFirstRecord (Query $query)
     {
-        $records = $this->getRecords($query);
-
-        return isset($records[0]) ? $records[0] : null;
+        return $this->getRecords($query)->getFirst();
     }
 
     /**
