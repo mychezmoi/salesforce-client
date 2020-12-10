@@ -4,7 +4,7 @@ namespace Mcm\SalesforceClient;
 
 abstract class AbstractSObject
 {
-    protected string $sId;
+    protected ?string $sId;
 
     protected ?array $content = [];
 
@@ -55,7 +55,7 @@ abstract class AbstractSObject
         return $this->sId;
     }
 
-    public function setSId(string $sId): self
+    public function setSId(string $sId = null): self
     {
         $this->sId = $sId;
 
@@ -79,9 +79,24 @@ abstract class AbstractSObject
         return isset($this->content[$field]) ? $this->content[$field] : null;
     }
 
+    public function getMultiPicklist(string $field) : array
+    {
+        return explode(',', $this->get($field));
+    }
+
     public function set(string $field, $value): void
     {
         $this->content[$field] = $value;
+    }
+
+    public function setMultiPicklist(string $field, array $values) : void
+    {
+        $this->set($field,implode(',', $values));
+    }
+
+    public function setName(string $name)
+    {
+        $this->set(self::getNameField(), $name);
     }
 
     public function getCreatedBy(): string
