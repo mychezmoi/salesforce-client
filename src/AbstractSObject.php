@@ -84,7 +84,7 @@ abstract class AbstractSObject
         return explode(',', $this->get($field));
     }
 
-    public function getBoolean(string $field, string $value): bool
+    public function getBoolean(string $field): bool
     {
         return strtolower($this->get($field)) === 'true';
     }
@@ -93,7 +93,7 @@ abstract class AbstractSObject
     {
         if ($value === null && isset($this->content[$field])) {
             unset($this->content[$field]);
-        } else {
+        } elseif ($value !== null) {
             $this->content[$field] = $value;
         }
     }
