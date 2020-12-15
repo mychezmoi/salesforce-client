@@ -6,5 +6,5 @@ interface ReplacingStrategyInterface
 {
     public function replace($value): string;
 
-    public function isApplicable(Type $type): bool;
+    public function isApplicable(string $type): bool;
 }

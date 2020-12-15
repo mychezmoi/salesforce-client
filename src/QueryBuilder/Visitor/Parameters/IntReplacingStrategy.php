@@ -4,7 +4,7 @@ namespace Mcm\SalesforceClient\QueryBuilder\Visitor\Parameters;
 
 class IntReplacingStrategy implements ReplacingStrategyInterface
 {
-    public function isApplicable(Type $type): bool
+    public function isApplicable(string $type): bool
     {
         return Type::INT === $type;
     }

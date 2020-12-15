@@ -154,4 +154,9 @@ class QueryBuilder
     {
         return $this->query;
     }
+
+    public function formatDateTime(\DateTime $dateTime)
+    {
+        return $dateTime->format('Y-m-d\TH:i:s\Z');
+    }
 }

@@ -1,8 +1,6 @@
 <?php
 
-namespace Mcm\SalesforceClient\Generator;
-
-use Mcm\SalesforceClient\Security\Token\TokenInterface;
+namespace Mcm\SalesforceClient\Security\Token;
 
 interface TokenGeneratorInterface
 {

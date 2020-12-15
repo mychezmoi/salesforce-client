@@ -1,6 +1,6 @@
 <?php
 
-namespace Mcm\SalesforceClient\Client;
+namespace Mcm\SalesforceClient\Response;
 
 class SalesforceResponseException extends \Exception
 {

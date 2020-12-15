@@ -84,9 +84,18 @@ abstract class AbstractSObject
         return explode(',', $this->get($field));
     }
 
+    public function getBoolean(string $field, string $value): bool
+    {
+        return strtolower($this->get($field)) === 'true';
+    }
+
     public function set(string $field, $value): void
     {
-        $this->content[$field] = $value;
+        if ($value === null && isset($this->content[$field])) {
+            unset($this->content[$field]);
+        } else {
+            $this->content[$field] = $value;
+        }
     }
 
     public function setMultiPicklist(string $field, array $values) : void
@@ -94,7 +103,12 @@ abstract class AbstractSObject
         $this->set($field,implode(',', $values));
     }
 
-    public function setName(string $name)
+    public function setBoolean(string $field, bool $value): void
+    {
+        $this->set($field, $value === true ? 'true' : 'false');
+    }
+
+    public function setName(string $name = null)
     {
         $this->set(self::getNameField(), $name);
     }

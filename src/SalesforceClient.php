@@ -1,8 +1,10 @@
 <?php
 
-namespace Mcm\SalesforceClient\Client;
+namespace Mcm\SalesforceClient;
 
 use Mcm\SalesforceClient\Request\RequestInterface;
+use Mcm\SalesforceClient\Response\SalesforceResponse;
+use Mcm\SalesforceClient\Response\SalesforceResponseException;
 
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpClient\HttpClient;
@@ -11,8 +13,8 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 use Mcm\SalesforceClient\Request;
-use Mcm\SalesforceClient\Generator\TokenGeneratorInterface;
 use Mcm\SalesforceClient\Security\Token\TokenInterface;
+use Mcm\SalesforceClient\Security\Token\TokenGeneratorInterface;
 
 class SalesforceClient
 {

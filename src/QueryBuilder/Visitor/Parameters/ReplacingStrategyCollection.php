@@ -29,7 +29,7 @@ class ReplacingStrategyCollection implements \ArrayAccess
             return true; // default will be used
         }
 
-        return $offset instanceof Type && $this->findApplicableStrategy($offset) instanceof ReplacingStrategyInterface;
+        return $this->findApplicableStrategy($offset) instanceof ReplacingStrategyInterface;
     }
 
     /**
@@ -71,10 +71,6 @@ class ReplacingStrategyCollection implements \ArrayAccess
 
     public function offsetUnset($offset)
     {
-        if (!$offset instanceof Type) {
-            return;
-        }
-
         $strategy = $this->findApplicableStrategy($offset);
 
         if (!$strategy) {
@@ -86,11 +82,11 @@ class ReplacingStrategyCollection implements \ArrayAccess
     }
 
     /**
-     * @param Type $type
+     * @param string $type
      *
      * @return ReplacingStrategyInterface|null
      */
-    private function findApplicableStrategy(Type $type)
+    private function findApplicableStrategy(string $type)
     {
         foreach ($this->strategies as $strategy) {
             if ($strategy->isApplicable($type)) {

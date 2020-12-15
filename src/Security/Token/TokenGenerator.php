@@ -1,10 +1,9 @@
 <?php
 
-namespace Mcm\SalesforceClient\Generator;
+namespace Mcm\SalesforceClient\Security\Token;
 
 use Mcm\SalesforceClient\Security\Authentication\AuthenticatorInterface;
 use Mcm\SalesforceClient\Security\Authentication\Credentials;
-use Mcm\SalesforceClient\Security\Token\TokenInterface;
 use Mcm\SalesforceClient\Storage\TokenStorageInterface;
 
 class TokenGenerator implements TokenGeneratorInterface

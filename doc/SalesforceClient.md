@@ -2,7 +2,7 @@ SalesforceClient
 ===
 A basic client for managing objects in Salesforce.
 
-### Setup
+## Setup
 
 Extend the default client to add your credentials, you can change the default apcu token storage
 > For more information on security tokens see “Reset Your Security Token” in the [online help](https://help.salesforce.com/articleView?id=user_security_token.htm&type=5).
@@ -12,8 +12,8 @@ Extend the default client to add your credentials, you can change the default ap
 
 namespace MyApp\Service; // change to your app name
 
-use Mcm\SalesforceClient\Client\SalesforceClient as McmSalesforceClient;
-use Mcm\SalesforceClient\Generator\TokenGenerator;
+use Mcm\SalesforceClient\SalesforceClient as McmSalesforceClient;
+use Mcm\SalesforceClient\Security\Token\TokenGenerator;
 use Mcm\SalesforceClient\Security\Authentication\Authenticator;
 use Mcm\SalesforceClient\Security\Authentication\Credentials;
 use Mcm\SalesforceClient\Security\Authentication\Strategy\PasswordGrantRegenerateStrategy;
@@ -48,9 +48,9 @@ class SalesforceClient extends McmSalesforceClient
 }
 ```
 
-### Define your model
+## Define your model
 
-For each salesforce object required you must define a php object
+For each salesforce object required you must define a php object with a getSName method
 
 Example with Contact
 
@@ -64,6 +64,23 @@ class Contact extends AbstractSObject
     public static function getSName() : string
     {
         return 'Contact';
+    }
+    
+    // you can define getters and setters to keep the salesforce model in MyApp\Model
+    
+    public static function getPhoneField(): string
+    {
+        return 'myapp_phone__c';
+    } 
+    
+    public function getPhone(): string
+    {
+        return $this->get(self::getPhoneField());
+    }
+    
+    public function setPhone (string $phone): void 
+    {
+        $this->set(self::getPhoneField(), $phone);    
     }
 }
 ```
@@ -95,27 +112,21 @@ parameters:
         password: '%env(SALESFORCE_PASSWORD)%'
         token: '%env(SALESFORCE_TOKEN)%'
 
-services:    
-    _defaults:
-        autowire: true
-        autoconfigure: true
-        bind:
-            $salesforceParameters: '%salesforce%'
-
-    # optionnal logger always usefull
-    MyApp\Service\SalesforceClient:  # change to your app name
+services:
+    MyApp\Service\SalesforceClient:
+        arguments: [ '%salesforce%' ]
         calls:
-            - [ 'setLogger', [ '@logger' ] ]
+            - [ 'setLogger', [ '@logger' ] ] # optionnal logger always usefull
 ```
 
-### How to use
+## How to use
 
 ```php
 use MyApp\Service\SalesforceClient; // change to your app name
 
-use Myapp\Model\Contact; // change to your domain model
+use MyApp\Model\Contact; // change to your domain model
 
-class MyAppClass 
+class MyAppClass
 {
     public function testSalesforceClient(SalesforceClient $salesforceClient)
     {
@@ -125,22 +136,32 @@ class MyAppClass
             ['LastName' => 'New Contact created with SalesforceClient']
         );
 
-        $contactId = $response->getContent()['id'];                                     
+        $contact = new Contact;
+        $contact->setSId($response->getContent()['id']);
 
         // Get whole object
-        $response  = $salesforceClient->get(Contact::getSName(), $contactId);        
+        $response  = $salesforceClient->get(Contact::getSName(), $contact->getSId());
+
+        // Once the content set you can acces it with the getters defined in Model\Contact
+        $contact->setContent($response->getContent());
 
         // Get only specified fields
-        $response  = $salesforceClient->get(Contact::getSName(), $contactId, ['LastName']);
+        $response  = $salesforceClient->get(Contact::getSName(), $contact->getSId(), ['LastName']);
 
         // Update object
-        $response  = $salesforceClient->update(Contact::getSName(), $contactId, ['LastName' => 'New name']);
+        $response  = $salesforceClient->update(Contact::getSName(), $contact->getSId(), ['LastName' => 'New name']);
 
         // Query
-        $response  = $salesforceClient->query("SELECT LastName FROM ".Contact::getSName()." WHERE Id='".$contactId."'");
+        $response  = $salesforceClient->query("SELECT LastName FROM ".Contact::getSName()." WHERE ".Contact::getSIdField()."='".$contact->getSId()."'");
 
         // Delete object
-        $response  = $salesforceClient->delete(Contact::getSName(), $contactId);        
+        $response  = $salesforceClient->delete(Contact::getSName(), $contact->getSId());
     }
 }
 ```
+
+For more details about SalesforceResponse see [Salesforce Response](doc/SalesforceResponse.md)
+
+For more advanced query usage see [Query Building](doc/QueryBuilding.md)
+
+[↑ Table of contents ↑](/doc/README.md)

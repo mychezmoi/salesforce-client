@@ -2,7 +2,7 @@
 
 namespace Mcm\SalesforceClient\QueryBuilder;
 
-use Mcm\SalesforceClient\Client\SalesforceClient;
+use Mcm\SalesforceClient\SalesforceClient;
 
 class QueryExecutor
 {
