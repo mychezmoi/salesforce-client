@@ -160,8 +160,8 @@ class MyAppClass
 }
 ```
 
-For more details about SalesforceResponse see [Salesforce Response](doc/SalesforceResponse.md)
+For more details about SalesforceResponse see [Salesforce Response](SalesforceResponse.md)
 
-For more advanced query usage see [Query Building](doc/QueryBuilding.md)
+For more advanced query usage see [Query Building](QueryBuilding.md)
 
-[↑ Table of contents ↑](/doc/README.md)
+[↑ Table of contents ↑](../README.md)

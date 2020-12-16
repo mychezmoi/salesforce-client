@@ -81,4 +81,4 @@ class QueryBuilder
 }
 ```
 
-[↑ Table of contents ↑](/doc/README.md)
+[↑ Table of contents ↑](../README.md)

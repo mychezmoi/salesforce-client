@@ -27,8 +27,8 @@ $query = (new QueryBuilder())
 ```
 
 Many more methods are available, (inner join, group by, limit...)
-* see [Query Builder](doc/QueryBuilder.md)
-* see [Expression Factory](doc/ExpressionFactory.md)
+* see [Query Builder](QueryBuilder.md)
+* see [Expression Factory](ExpressionFactory.md)
 
 ## Step 2 : QueryExecutor
 
@@ -48,4 +48,4 @@ do {
 } while (($records = $queryExecutor->getNextRecords($records)) !== null);
 ```
 
-[↑ Table of contents ↑](/doc/README.md)
+[↑ Table of contents ↑](../README.md)
