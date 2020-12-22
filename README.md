@@ -16,6 +16,7 @@ This bundle is freely adapted from github.com/boldare/salesforce-client
 Table of contents
 ===
 
+* [Install](doc/Install.md)
 * [Salesforce Client](doc/SalesforceClient.md)
 * [Salesforce Response](doc/SalesforceResponse.md)
 * [Query Building](doc/QueryBuilding.md)

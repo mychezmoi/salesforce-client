@@ -2,10 +2,18 @@
 
 namespace Mcm\SalesforceClient;
 
+/**
+ * Base representation of a Salesforce Object
+ *
+ * Extend it for each of your Salesforce Objects
+ */
 abstract class AbstractSObject
 {
     protected ?string $sId;
 
+    /**
+     * Associative array to store the object fields/values
+     */
     protected ?array $content = [];
 
     abstract public static function getSName(): string;
