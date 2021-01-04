@@ -37,8 +37,8 @@ class SalesforceClient extends McmSalesforceClient
     public function __construct(array $salesforceParameters)
     {
         $credentials = new Credentials(
-            $salesforceParameters['id'], // Connected App -> Consumer Key
-            $salesforceParameters['secret'], // Connected App -> Consumer Secret
+            $salesforceParameters['id'],
+            $salesforceParameters['secret'],
             'password',
             [
                 // account credentials
@@ -48,7 +48,7 @@ class SalesforceClient extends McmSalesforceClient
             ]
         );
 
-        $authenticator = new Authenticator([new PasswordGrantRegenerateStrategy()]);
+        $authenticator = new Authenticator($salesforceParameters['domain'], [new PasswordGrantRegenerateStrategy()]);
 
         $tokenGenerator = new TokenGenerator(
             $credentials,
@@ -107,11 +107,18 @@ class Contact extends AbstractSObject
 SALESFORCE_VERSION=v50.0
 SALESFORCE_ID=myid
 SALESFORCE_SECRET=mysecret
+SALESFORCE_DOMAIN=mydomain.my.salesforce.com
 SALESFORCE_USERNAME=myuser@domain.com
 SALESFORCE_PASSWORD=mypassword
 SALESFORCE_TOKEN=mytoken
 ###< SALESFORCE ### 
 ```
+Help 
+- version : https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/dome_versions.htm
+- id : Admin -> Connected App -> Consumer Key https://developer.salesforce.com/docs/atlas.en-us.salesforce_developer_environment_dotnet_tipsheet.meta/salesforce_developer_environment_dotnet_tipsheet/salesforce_developer_environment_remoteaccess.htm
+- secret : Admin -> Connected App -> Consumer Secret
+- domain : https://help.salesforce.com/articleView?id=domain_name_overview.htm&type=5
+- token : https://help.salesforce.com/articleView?id=user_security_token.htm&type=5
 
 config/services.yaml
 
@@ -121,6 +128,7 @@ parameters:
         version: '%env(SALESFORCE_VERSION)%'
         id: '%env(SALESFORCE_ID)%'
         secret: '%env(SALESFORCE_SECRET)%'
+        domain: '%env(SALESFORCE_DOMAIN)%'
         username: '%env(SALESFORCE_USERNAME)%'
         password: '%env(SALESFORCE_PASSWORD)%'
         token: '%env(SALESFORCE_TOKEN)%'

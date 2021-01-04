@@ -87,7 +87,7 @@ abstract class AbstractSObject
         return isset($this->content[$field]) ? $this->content[$field] : null;
     }
 
-    public function getMultiPicklist(string $field) : array
+    public function getMultiPicklist(string $field): array
     {
         return explode(',', $this->get($field));
     }
@@ -106,9 +106,9 @@ abstract class AbstractSObject
         }
     }
 
-    public function setMultiPicklist(string $field, array $values) : void
+    public function setMultiPicklist(string $field, array $values): void
     {
-        $this->set($field,implode(',', $values));
+        $this->set($field, implode(',', $values));
     }
 
     public function setBoolean(string $field, bool $value): void

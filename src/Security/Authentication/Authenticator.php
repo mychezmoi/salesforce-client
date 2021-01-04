@@ -12,7 +12,9 @@ use Mcm\SalesforceClient\Security\Token\TokenInterface;
 
 class Authenticator implements AuthenticatorInterface
 {
-    const TOKEN_URL = 'https://login.salesforce.com/services/oauth2/token';
+    const TOKEN_URL = 'https://%s/services/oauth2/token';
+
+    protected string $domain;
 
     protected HttpClientInterface $client;
 
@@ -24,8 +26,9 @@ class Authenticator implements AuthenticatorInterface
     /**
      * @param RegenerateStrategyInterface[] $regenerateStrategies
      */
-    public function __construct(array $regenerateStrategies = [])
+    public function __construct(string $domain, array $regenerateStrategies = [])
     {
+        $this->domain               = $domain;
         $this->client               = HttpClient::create();
         $this->regenerateStrategies = $regenerateStrategies;
     }
@@ -36,7 +39,7 @@ class Authenticator implements AuthenticatorInterface
         try {
             $response = $this->client->request(
                 Request::METHOD_POST,
-                self::TOKEN_URL,
+                sprintf(self::TOKEN_URL, $this->domain),
                 [
                     'headers' => [
                         'Content-type' => 'application/x-www-form-urlencoded',

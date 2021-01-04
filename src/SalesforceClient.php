@@ -142,6 +142,16 @@ class SalesforceClient
             $options['json'] = $request->getParams();
         }
 
+        $this->log(
+            'debug',
+            sprintf(
+                'request method : %s uri : %s, options : %s',
+                $request->getMethod(),
+                $this->getUri($token, $request),
+                json_encode($options)
+            )
+        );
+
         return $this->client->request(
             $request->getMethod(),
             $this->getUri($token, $request),
