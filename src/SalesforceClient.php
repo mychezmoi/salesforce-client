@@ -47,7 +47,7 @@ class SalesforceClient
         }
     }
 
-    public function create(string $objectType, array $parameters): SalesforceResponse
+    public function create(string $objectType, array $parameters = []): SalesforceResponse
     {
         return $this->doRequest(new Request\Create($objectType, $parameters));
     }
@@ -57,7 +57,7 @@ class SalesforceClient
         return $this->doRequest(new Request\Get($objectType, $id, $parameters));
     }
 
-    public function update(string $objectType, string $id, array $parameters): SalesforceResponse
+    public function update(string $objectType, string $id, array $parameters = []): SalesforceResponse
     {
         return $this->doRequest(new Request\Update($objectType, $id, $parameters));
     }
