@@ -13,8 +13,8 @@
   "type": "library",
   "require": {
     "php": ">=7.4",
-    "symfony/http-foundation": "5.2.*",
-    "symfony/http-client": "5.2.*",
+    "symfony/http-foundation": "5.4.*",
+    "symfony/http-client": "5.4.*",
     "ext-json": "*",
     "ext-apcu": "*"
   },
